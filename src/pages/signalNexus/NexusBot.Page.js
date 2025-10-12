@@ -55,8 +55,7 @@ const accessVerification = new AccessVerification();
 
   <div class="app-card">
     <div class="app-header">
-      <i class="fas fa-robot robot mr-4 text-3xl"></i>
-      
+     <img class="logoFb" src="/src/assents/imgs/Logo.jpg" alt="logo">
       <p>Gerador De Sinais</p>
     </div>
 
