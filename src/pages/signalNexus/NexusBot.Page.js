@@ -152,6 +152,8 @@ const accessVerification = new AccessVerification();
   <audio id="cem" src="/public/assents/music/100x.mp3"></audio>
   <audio id="tre" src="/public/assents/music/300x.mp3"></audio>
   <audio id="mil" src="/public/assents/music/1000x.mp3"></audio>
+  <audio id="welcome" src="/public/assents/music/welcome.mp3"></audio>
+  
 </section>
 
 
@@ -167,9 +169,13 @@ afterRender() {
     
 // Ocultar a div após 3 segundos
 setTimeout(() => {
-  //  console.log('open bg loader')
+    // console.log('open bg loader')
     document.getElementById('bgL').style.display = 'none';
-   document.getElementById('navtop').classList.add('Zindex')
+    document.getElementById('navtop').classList.add('Zindex')
+    // $('#welcome').play()
+    var audio = $('#welcome')[0];
+audio.play();
+audio.muted = false;
 }, 7300);
 
 // Logic
