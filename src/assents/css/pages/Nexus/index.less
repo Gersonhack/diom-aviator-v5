@@ -21,7 +21,7 @@
 @focus-color: #4f46e5;
   @error-color: #ef4444;
 @signal-color: #D3076D;
-  @signal-hover: #7c3aed;
+  @signal-hover: transparent;
 
 
 
@@ -313,13 +313,21 @@ font-family: 'Alegreya', sans-serif;
   background: #4f46e5;
   background: linear-gradient(0deg, #4f46e5 0%, #4D46C1 100%);
   border: 1px solid #525F7278;
+  
+  
+&:hover {
+  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
 }
 .robot{
   color:#4f46e5;
 }
 .btn-3{
    background: linear-gradient(0deg, #E86E6E 0%, #E42727 100%);
-;
+
 background: #BC3D3D;
 border:none;
 }
@@ -328,12 +336,6 @@ border:none;
   width: 2px;
 }
 
-.btn-2:hover {
-  box-shadow: 4px 4px 6px 0 rgba(255,255,255,.5),
-              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
-    inset -4px -4px 6px 0 rgba(255,255,255,.2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
-}
 
 
 

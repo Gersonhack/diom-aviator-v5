@@ -86,7 +86,7 @@ const accessVerification = new AccessVerification();
               <input type="checkbox" id="autoGenerate" />
               <span class="slider"></span>
             </label>
-            <span class="auto-generate-label">Auto</span>
+            <span id="autoT" class="auto-generate-label">Auto</span>
           </section>
         </div>
       </div>
@@ -153,7 +153,7 @@ const accessVerification = new AccessVerification();
   <audio id="tre" src="/public/assents/music/300x.mp3"></audio>
   <audio id="mil" src="/public/assents/music/1000x.mp3"></audio>
   <audio id="welcome" src="/public/assents/music/welcome.mp3"></audio>
-  
+ 
 </section>
 
 
@@ -446,7 +446,7 @@ const adicionarItem = () => {
     const minutoAtual = horaAtual.getMinutes();
     const segundoAtual = horaAtual.getSeconds();
     
-    // **VOLTAR À LÓGICA ORIGINAL: Adicionar à lista2 a cada 40 cliques**
+    
     if (clickCount % 40 === 0) {
         const novaHoraLista2 = gerarHoraLista2(
             horaAtualCentralizada,
@@ -565,9 +565,12 @@ const iniciarAutoGeracao = () => {
     
     isGenerating = true;
     const btnAdicionar = document.getElementById("btnAdicionar");
-    
+    const autoText = document.getElementById('autoT')
+    const  click = document.getElementById("robo"); 
     // Alterar texto do botão
     if (btnAdicionar) {
+        click.play()
+        autoText.textContent = "Parar"
         btnAdicionar.textContent = "Gerando...";
         btnAdicionar.disabled = true;
     }
@@ -589,9 +592,12 @@ const pararAutoGeracao = () => {
     
     isGenerating = false;
     const btnAdicionar = document.getElementById("btnAdicionar");
+    const autoText = document.getElementById('autoT')
     
     // Restaurar texto do botão
     if (btnAdicionar) {
+    
+        autoText.textContent = 'Auto'
         btnAdicionar.textContent = "Gerar";
         btnAdicionar.disabled = false;
     }
@@ -650,6 +656,7 @@ const atualizarStatusInput = () => {
 
 // Botão de adicionar item
 const btnAdicionar = document.getElementById("btnAdicionar");
+   
 if (btnAdicionar) {
     btnAdicionar.addEventListener("click", adicionarItem);
 }
@@ -673,9 +680,11 @@ if (btnBack) {
 // ==========================================
 if (typeof $ !== 'undefined') {
     $(document).ready(function() {
-        // Handler para botão adicionar com jQuery
+    
+        // Handler btn add
         $('#btnAdicionar').on('click', function() {
             atualizarStatusInput();
+          //  roboS.play()
         });
         
         // Handler para mudança no select de números
@@ -686,6 +695,8 @@ const cin = document.getElementById("cin");
 const tre = document.getElementById("tre"); 
 const mil = document.getElementById("mil");
 const cem = document.getElementById("cem");
+
+   
 
 
 if (values === "50") {
