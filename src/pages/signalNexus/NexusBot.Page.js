@@ -318,8 +318,8 @@ const htmlContent = `
 
 <div class="divis">
   <span class="especial">1.37x</span>
-  <span class="especial pink">11.38x</span>
-  <span class="especial pink">33.88x</span>
+  <span class="especial">1.38x</span>
+  <span class="especial roxo">3.88x</span>
   <span class="especial">1.39x</span>
   <span class="especial">1.40x</span>
 </div>
@@ -336,7 +336,7 @@ const htmlContent = `
   <span class="especial">1.58x</span>
   <span class="especial">1.60x</span>
   <span class="especial">1.66x</span>
-  <span class="especial">11.70x</span>
+  <span class="especial">1.70x</span>
   <span class="especial">1.71x</span>
 </div>
 
