@@ -23,7 +23,7 @@ export class Modalcalc {
             <div class="input-group delay-2">
                 <label for="capitalInicial" class="block text-sm font-medium mb-1">Quanto você tem de banca? (R$):</label>
                 <input type="number" id="capitalInicial" placeholder="Ex: 1000" min="1" required 
-                       class="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-600 input text-white">
+                       class="w-full px-4 py-2 rounded-lg focus:ring-2 focus:ring-purple-600 input ">
             </div>
             
             <div class="input-group delay-2">

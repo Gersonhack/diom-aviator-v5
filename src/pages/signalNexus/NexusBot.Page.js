@@ -38,7 +38,9 @@ const accessVerification = new AccessVerification();
     
 <section class="containerN">
   <!-- Loading Nexus bot -->
-  <div class="bgloading" id="bgL"></div>
+  <div class="bgloading" id="bgL">
+
+  </div>
 
   ${navbartop.render()}
   ${modalafiliad.render()}
@@ -49,7 +51,9 @@ const accessVerification = new AccessVerification();
   ${live.render()}
 
   <!-- Blur screen ofuscator -->
-  <div class="ofus" id="blur"></div>
+  <div class="ofus" id="blur">
+  
+  </div>
 
   <div class="container"></div>
 
