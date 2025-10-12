@@ -175,6 +175,7 @@ setTimeout(() => {
     // $('#welcome').play()
     var audio = $('#welcome')[0];
 audio.play();
+audio.volume = 0.2; // Define o volume para 50%
 audio.muted = false;
 }, 7300);
 
