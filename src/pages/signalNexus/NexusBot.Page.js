@@ -313,13 +313,13 @@ const htmlContent = `
   <span class="especial">1.15x</span>
   <span class="especial">1.18x</span>
   <span class="especial">1.20x</span>
-  <span class="especial">11.36x</span>
+  <span class="especial">1.36x</span>
 </div>
 
 <div class="divis">
   <span class="especial">1.37x</span>
-  <span class="especial">11.38x</span>
-  <span class="especial">33.88x</span>
+  <span class="especial pink">11.38x</span>
+  <span class="especial pink">33.88x</span>
   <span class="especial">1.39x</span>
   <span class="especial">1.40x</span>
 </div>
@@ -327,13 +327,13 @@ const htmlContent = `
 <div class="divis">
   <span class="especial">1.43x</span>
   <span class="especial">1.48x</span>
-  <span class="especial">1111.50x</span>
+  <span class="especial">1.50x</span>
   <span class="especial">1.52x</span>
-  <span class="especial">11.56x</span>
+  <span class="especial">1.56x</span>
 </div>
 
 <div class="divis">
-  <span class="especial">11.58x</span>
+  <span class="especial">1.58x</span>
   <span class="especial">1.60x</span>
   <span class="especial">1.66x</span>
   <span class="especial">11.70x</span>
@@ -343,10 +343,10 @@ const htmlContent = `
 <div class="divis">
   <span class="especial">1.73x</span>
   <span class="especial">1.77x</span>
-  <span class="especial">11.88x</span>
-  <span class="especial">1111.98x</span>
+  <span class="especial">1.88x</span>
+  <span class="especial">1.98x</span>
   <span class="especial">1.99x</span>
-  <span class="especial">2.88x</span>
+  <span class="especial roxo">2.88x</span>
 </div>
 
 

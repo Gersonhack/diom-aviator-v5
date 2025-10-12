@@ -53,7 +53,7 @@ export class Profile{
         </div>
     </div>
     
-    <button id="logout-user-btn" class="w-38 bg-red hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105">
+    <button id="logout-user-btn" class="w-38 bg-red hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition duration-300 transform hover:scale-105 ">
         <i class="fas fa-sign-out-alt mr-2"></i>
         Sair da Conta
     </button>
