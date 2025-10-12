@@ -81,7 +81,7 @@ export class Modalsocial{
   
   // close modal
   $closeSocial.on('click', function() {
-    $ModalSocial.css('display', 'none');
+    $Modalsocial.css('display', 'none');
 ofuscarr.css('display','none')
 if (robo) {
     robo.play();
