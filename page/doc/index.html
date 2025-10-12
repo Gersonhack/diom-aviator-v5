@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - Diom Aviator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#60a5fa',
+                        secondary: '#a78bfa',
+                        success: '#34d399',
+                        warning: '#fbbf24',
+                        danger: '#f87171',
+                        dark: {
+                            100: '#1f2937',
+                            200: '#111827',
+                            300: '#0f172a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #0f172a 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        }
+        
+        .dark-card {
+            background: #1f2937;
+            border: 1px solid #374151;
+        }
+        
+        .dark-border {
+            border-color: #374151;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen text-gray-300">
+    <div class="content p-6 max-w-6xl mx-auto">
+        <!-- Cabeçalho -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-white mb-4">
+                <i class="fas fa-robot text-primary mr-3"></i>
+                Documentação do Bot Diom Aviator 
+            </h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+                Guia completo para utilizar nosso sistema de geração de sinais com máxima eficiência
+            </p>
+        </div>
+
+        <!-- Introdução -->
+        <div class="dark-card rounded-2xl shadow-lg p-8 mb-8 card-hover border-l-4 border-primary">
+            <div class="flex items-start">
+                <div class="bg-blue-900 bg-opacity-50 p-3 rounded-full mr-4">
+                    <i class="fas fa-info-circle text-primary text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-white mb-4">Introdução</h2>
+                    <div class="prose prose-lg text-gray-300">
+                        <p class="mb-4">
+                            <strong class="text-white">Embora o bot esteja sempre disponível para uso, é sempre importante verificar as condições do mercado.</strong> Nosso bot tem uma taxa de acerto de 98%, caso o bot seja usado com sabedoria, ele gerará uma receita inflável.
+                        </p>
+                        <p class="mb-4">
+                            No entanto, se for usado por pessoas sem nenhum conhecimento do bot e do próprio jogo, pode levar à falência. Portanto, não culpe o bot pelas perdas, pois não nos responsabilizamos pelas perdas, mas sim pelo funcionamento do bot.
+                        </p>
+                        <p>
+                            <strong class="text-white">Por isso, é importante verificar as condições do mercado antes de tomar decisões.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Como usar - Gerar Sinais -->
+        <div class="dark-card rounded-2xl shadow-lg p-8 mb-8 card-hover">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+                <i class="fas fa-play-circle text-secondary mr-3"></i>
+                Como Gerar Sinais
+            </h2>
+            
+            <!-- Passo 1 -->
+            <div class="flex flex-col md:flex-row mb-8 p-6 bg-blue-900 bg-opacity-30 rounded-xl dark-border">
+                <div class="md:w-1/4 mb-4 md:mb-0">
+                    <div class="step-number rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto md:mx-0">
+                        1
+                    </div>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-semibold text-white mb-3">Clique no Botão "Gerar"</h3>
+                    <p class="text-gray-300 mb-4">
+                        Localize e clique no botão "Gerar Sinais" na interface principal do bot.
+                    </p>
+                    <div class="bg-gray-800 text-white p-4 rounded-lg inline-block border border-gray-700">
+                        <i class="fas fa-mouse-pointer mr-2"></i>
+                        Botão: <span class="font-mono bg-gray-700 px-2 py-1 rounded border border-gray-600">Gerar</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passo 2 -->
+            <div class="flex flex-col md:flex-row mb-8 p-6 bg-purple-900 bg-opacity-30 rounded-xl dark-border">
+                <div class="md:w-1/4 mb-4 md:mb-0">
+                    <div class="step-number rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto md:mx-0">
+                        2
+                    </div>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-semibold text-white mb-3">Escolha as Velas de Probabilidade</h3>
+                    <p class="text-gray-300 mb-4">
+                        No campo de Sinais de probabilidade, selecione as configurações desejadas para as velas analisadas.
+                    </p>
+                    <div class="flex items-center bg-gray-800 p-4 rounded-lg border border-gray-700">
+                        <i class="fas fa-chart-line text-warning text-2xl mr-4"></i>
+                        <div>
+                            <h4 class="font-semibold text-white">Campo de Sinais  Probabilidade</h4>
+                            <p class="text-gray-400 text-sm">Selecione entre as opções disponíveis</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Passo 3 -->
+            <div class="flex flex-col md:flex-row p-6 bg-green-900 bg-opacity-30 rounded-xl dark-border">
+                <div class="md:w-1/4 mb-4 md:mb-0">
+                    <div class="step-number rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto md:mx-0">
+                        3
+                    </div>
+                </div>
+                <div class="md:w-3/4">
+                    <h3 class="text-xl font-semibold text-white mb-3">Sinais Gerados</h3>
+                    <p class="text-gray-300 mb-4">
+                        As possíveis rosas (sinais) serão automaticamente geradas e exibidas para você.
+                    </p>
+                    <div class="bg-success bg-opacity-20 text-green-300 p-4 rounded-lg inline-block border border-green-800">
+                        <i class="fas fa-check-circle mr-2"></i>
+                    Resultados da busca 
+                    </div>
+                </div>
+                
+                
+            
+            </div>
+            
+        
+        </div>
+
+
+  <div class="flex flex-col md:flex-row mb-8 p-6 bg-blue-900 bg-opacity-30 rounded-xl dark-border">
+      <div class="md:w-1/4 mb-4 md:mb-0">
+          <div class="step-number rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto md:mx-0">
+              <i class="fas fa-tools"></i>
+          </div>
+      </div>
+      <div class="md:w-3/4">
+          <h3 class="text-xl font-semibold text-white mb-3">Funcionalidade Detalhes da Vela</h3>
+          <p class="text-gray-300 mb-4">
+              Localize e clique no Sinal  Gerado "Resultado Da Busca" na interface principal do bot.
+          </p>
+          <div class="bg-gray-800 text-white p-4 rounded-lg inline-block border border-gray-700">
+              <i class="fas fa-mouse-pointer mr-2"></i>
+              click: <span class="font-mono bg-pink-500 px-2 py-1 rounded border border-gray-600">12:23:37s</span>
+          </div>
+      </div>
+  </div>
+
+
+        <!-- Dicas Importantes -->
+        <div class="dark-card rounded-2xl shadow-lg p-8 mb-8 card-hover">
+            <h2 class="text-3xl font-bold text-white mb-6 flex items-center">
+                <i class="fas fa-lightbulb text-warning mr-3"></i>
+                Dicas Importantes
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-yellow-900 bg-opacity-20 p-6 rounded-xl border border-yellow-800">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-chart-bar text-warning text-xl mr-3"></i>
+                        <h3 class="text-lg font-semibold text-white">Análise de Mercado</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Sempre verifique as condições do mercado antes de seguir qualquer sinal gerado pelo bot.
+                    </p>
+                </div>
+                
+                <div class="bg-blue-900 bg-opacity-20 p-6 rounded-xl border border-blue-800">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-shield-alt text-primary text-xl mr-3"></i>
+                        <h3 class="text-lg font-semibold text-white">Gestão de Risco</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Utilize estratégias de gestão de risco adequadas e nunca invista mais do que pode perder.
+                    </p>
+                </div>
+                
+                <div class="bg-green-900 bg-opacity-20 p-6 rounded-xl border border-green-800">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-graduation-cap text-success text-xl mr-3"></i>
+                        <h3 class="text-lg font-semibold text-white">Aprendizado Contínuo</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Estude e compreenda como o bot funciona para tomar decisões mais informadas.
+                    </p>
+                </div>
+                
+                <div class="bg-red-900 bg-opacity-20 p-6 rounded-xl border border-red-800">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-exclamation-triangle text-danger text-xl mr-3"></i>
+                        <h3 class="text-lg font-semibold text-white">Responsabilidade</h3>
+                    </div>
+                    <p class="text-gray-300">
+                        Você é responsável por suas próprias decisões de investimento. Use o bot com sabedoria.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Elementos SVG Decorativos -->
+        <div class="text-center mt-12">
+            <div class="inline-flex space-x-8 opacity-70">
+                <!-- SVG 1 -->
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#60a5fa" stroke="#60a5fa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                <!-- SVG 2 -->
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+                <!-- SVG 3 -->
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 19V13C9 11.8954 9.89543 11 11 11H13C14.1046 11 15 11.8954 15 13V19M9 19C9 20.1046 9.89543 21 11 21H13C14.1046 21 15 20.1046 15 19M9 19V9M15 19V9M9 9V7C9 5.89543 9.89543 5 11 5H13C14.1046 5 15 5.89543 15 7V9M9 9H15" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

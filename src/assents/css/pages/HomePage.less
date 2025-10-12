@@ -1,0 +1,273 @@
+        // Variáveis LESS
+        @primary-color: #4f46e5;
+        @secondary-color: #8b5cf6;
+        @text-dark: #1f2937;
+        @text-gray: #6b7280;
+        @text-light: #9ca3af;
+        @white: #ffffff;
+        
+        // Mixins
+        .flex-center() {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .gradient-text() {
+          background: linear-gradient(135deg, @primary-color 0%, @secondary-color 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .card-shadow() {
+          box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hover-scale() {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          
+          &:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.2);
+          }
+        }
+        
+        .hover-scale-icon() {
+          transition: transform 0.3s ease;
+          
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+        
+        // Estilos principais
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        .home {
+          background: linear-gradient(135deg, #ffffff 0%, #f8faff 25%, #f0f4ff 50%, #e8eeff 75%, #e0e7ff 100%);
+          min-height: 100vh;
+          font-family: 'Inter', sans-serif;
+          display: flex;
+          flex-direction: column;
+        }
+        
+        .home-container {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          padding: 3rem 1.5rem;
+        }
+        
+        .content-wrapper {
+          max-width: 28rem;
+          width: 100%;
+          text-align: center;
+        }
+        
+        .avatar-section {
+          width: 16rem;
+          height: 12rem;
+          margin: 0 auto;
+          border-radius: 1rem;
+          .flex-center();
+        }
+        
+        .avatar-container {
+          text-align: center;
+        }
+        
+        .avatar-image-wrapper {
+          width: 12rem;
+          height: 12rem;
+          margin: 0 auto 0.75rem;
+          background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          border-radius: 50%;
+          .flex-center();
+          overflow: hidden;
+          .card-shadow();
+        }
+        
+        .avatar-image {
+          border-radius: 50%;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+        .text-section {
+          margin: 2rem 0;
+        }
+        
+        .main-title {
+          font-size: 2.25rem;
+          font-weight: 700;
+          color: @text-dark;
+          font-family: 'Poppins', sans-serif;
+          margin-bottom: 1rem;
+        }
+        
+        .gradient-text {
+          .gradient-text();
+        }
+        
+        .description {
+          font-size: 2.70rem;
+          color: @text-gray;
+          line-height: 1.75;
+          font-weight: 300;
+          margin-bottom: 1rem;
+        }
+        
+        .buttons-section {
+          margin-top: 1.5rem;
+        }
+        
+        .button-group {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        
+        .button-link {
+          display: block;
+          text-decoration: none;
+        }
+        
+        .primary-button {
+          width: 100%;
+          height: 3rem;
+          font-size: 1.125rem;
+          font-weight: 500;
+          color: @white;
+          background: linear-gradient(135deg, @primary-color 0%, @secondary-color 100%);
+          border: none;
+          border-radius: 0.5rem;
+          font-family: 'Poppins', sans-serif;
+          .hover-scale();
+          .card-shadow();
+          cursor: pointer;
+        }
+        
+        .secondary-button {
+          width: 100%;
+          height: 3rem;
+          font-size: 1.125rem;
+          font-weight: 500;
+          color: @primary-color ;
+          background: rgba(255, 255, 255, 0.8) !important;
+          border: 2px solid @primary-color;
+          border-radius: 0.5rem;
+          font-family: 'Poppins', sans-serif;
+          .hover-scale();
+          .card-shadow();
+          cursor: pointer;
+        }
+        
+        .footer {
+          width: 100%;
+          padding: 2rem;
+        }
+        
+        .footer-content {
+          max-width: 28rem;
+          margin: 0 auto;
+        }
+        
+        .social-text {
+          text-align: center;
+          color: @text-light;
+          font-size: 0.875rem;
+          font-weight: 300;
+          margin-bottom: 1.5rem;
+        }
+        
+        .social-icons {
+          display: flex;
+          justify-content: center;
+          gap: 1.5rem;
+        }
+        
+        .social-icon {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 50%;
+          .flex-center();
+          .hover-scale-icon();
+          .card-shadow();
+          text-decoration: none;
+          
+          &.whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+          }
+          
+          &.instagram {
+            background: linear-gradient(135deg, #E4405F 0%, #C13584 100%);
+          }
+          
+          &.youtube {
+            background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+          }
+          
+          &.telegram {
+            background: linear-gradient(135deg, #0088CC 0%, #005580 100%);
+          }
+        }
+        
+        .social-icon svg {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: @white;
+        }
+        
+        // Responsividade
+        @media (max-width: 768px) {
+          .home-container {
+            padding: 2rem 1rem;
+          }
+          
+          .main-title {
+            font-size: 1.875rem;
+          }
+          
+          .description {
+            font-size: 1rem;
+          }
+          
+          .avatar-image-wrapper {
+            width: 10rem;
+            height: 10rem;
+          }
+          
+          .social-icons {
+            gap: 1rem;
+          }
+          
+          .social-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .main-title {
+            font-size: 1.5rem;
+          }
+          
+          .description {
+            font-size: 0.875rem;
+          }
+          
+          .primary-button,
+          .secondary-button {
+            height: 2.5rem;
+            font-size: 1rem;
+          }
+        }

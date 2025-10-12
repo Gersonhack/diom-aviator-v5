@@ -1,0 +1,68 @@
+.toastify {
+  padding: 10px 20px;
+  color: #E1E4E9;
+  width: 300px;
+  display: inline-block;
+  background: #1F2937DB;
+border: 1px solid #4f46e5;
+  backdrop-filter: blur(4px);
+  position: fixed;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 12px;
+  cursor: pointer;
+  max-width: calc(50% - 20px);
+  z-index: 2147483647;
+  font-size: 12px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra mais suave */
+  
+}
+
+.toastify.on {
+  opacity: 1;
+}
+
+.toast-close {
+  background: transparent;
+  border: 0;
+  color: #EE6666;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1em;
+  opacity: 0.6;
+  padding: 1px 3px;
+  position: absolute;
+  right: 0;
+  top: 5px;
+}
+
+.toastify-right {
+  right: 15px;
+}
+
+.toastify-left {
+  left: 15px;
+}
+
+.toastify-top {
+  top: 15px;
+}
+
+.toastify-bottom {
+  bottom: 15px;
+}
+
+.toastify-center {
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  max-width: fit-content;
+}
+
+@media only screen and (max-width: 360px) {
+  .toastify {
+    max-width: 90%;
+  }
+}

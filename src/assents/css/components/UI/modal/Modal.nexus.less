@@ -1,0 +1,122 @@
+.modal-nexus{
+  display: none;
+  flex-direction: column;
+  background: #303843;
+  border: 1px solid #525F7278;
+  position: absolute;
+  height: 400px;
+  width: 350px;
+  z-index: 888;
+  right: 20px;
+top:35px;
+border-radius: 12px;
+opacity: 0;
+    transform: scale(0.7) translateY(-30px);
+    visibility: hidden;
+    transition: 
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+
+.headerNav{
+  background:#303843;
+  height:45px;
+  width:100%;
+  padding:8px 4px;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  gap:3px;
+ align-items: center;
+  
+  .userImg{
+    height: 70px;
+    width: 70px;
+    border-radius:30px;
+  }
+  .name{
+      border-bottom:#4f46e5 3px solid ;
+  }
+}
+
+.box-actions{
+  width: 100%;
+  height: 34.123px;
+  padding: 8px;
+  background:#1F2937DB;
+  font-size: 14px;
+  
+  i{
+     
+      color:#787A8C;
+  }
+  
+  &:hover{
+    background:#FFFFFF0F;
+    border:2px solid #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+  }
+}
+.x{
+  margin-top:2px;
+}//margin top smoll
+.xx{
+  margin-top: 24px;
+}//margin top big
+.sair{
+    
+    &:hover{
+        background: #F3111161;
+    }
+}
+
+.modal-nexus.active{
+display:flex ;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  visibility: visible;
+  animation: swal2-show 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+
+
+/* ANIMAÇÃO ESPECÍFICA DO SWEETALERT2 */
+@keyframes swal2-show {
+    0% {
+        transform: scale(0.7) translateY(-30px);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05) translateY(-5px);
+        opacity: 0.8;
+    }
+    80% {
+        transform: scale(0.95) translateY(2px);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ANIMAÇÃO DE FECHAR (opcional) */
+.modal-nexus.closing {
+    animation: swal2-hide 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes swal2-hide {
+    0% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.7) translateY(-30px);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
