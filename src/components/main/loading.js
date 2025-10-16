@@ -10,6 +10,11 @@ export class Loading {
       <div class="div3" id="div3"></div>
       <div class="div4" id="div4"></div>
       <div class="div5" id="div5"></div>
+      
+                  <div class="from">
+                <span>From</span>
+                <h1 class="company-name">Diom systems</h1>
+            </div>
        </div>
 
       </div>
