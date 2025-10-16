@@ -5,15 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diom aviator</title>
-    <link rel="stylesheet" href="/src/assents/css/index.css">
-    <link rel="stylesheet/less" href="/src/assents/css/main.less" type="text/css">
-    <link rel="stylesheet" href="/src/assents/css/pages/mainActivity.css">
-    <script src="
-https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js
-"></script>
     
-    <head>
-    </head>
+    <!-- Carregar bibliotecas CSS primeiro -->
+    <link rel="stylesheet" href="/src/assents/css/index.css">
+    <link rel="stylesheet" href="/src/assents/css/pages/mainActivity.css">
+    
+    <!-- SweetAlert2 CSS (se necessário, ou use o CDN do JS) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.min.css">
+
+    <!-- LESS.js para compilação client-side (idealmente, pré-compile para CSS em produção) -->
+    <link rel="stylesheet/less" href="/src/assents/css/main.less" type="text/css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/less@4.1.3/dist/less.min.js"></script>
+
+    <!-- Carregar bibliotecas JavaScript antes do app.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- Seu script principal app.js (agora com todas as dependências carregadas) -->
+    <script type="module" src="/src/app.js"></script>
+
+</head>
     
 <body>
     <div id="root">
@@ -25,15 +40,6 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.22.0/dist/sweetalert2.all.min.js
             </div>
         </section>
     </div>
-    
-    <script type="text/javascript" src="cdn_modules/less.js@4.4.0/less.min.js"></script>
-
-        <script type="module" src="/src/app.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </body>
 
 </html>
