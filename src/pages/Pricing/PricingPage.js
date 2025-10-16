@@ -16,7 +16,7 @@ export class PricingPage {
                         <i class="fas fa-star"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4">Básico</h3>
-                    <div class="text-4xl font-bold text-blue-400 mb-4">R$ 15<span class="text-lg text-gray-400">/3dias</span></div>
+                    <div class="text-4xl font-bold text-blue-400 mb-4">R$ 24,99<span class="text-lg text-gray-400">/3dias</span></div>
                     
                 </div>
 
@@ -27,7 +27,7 @@ export class PricingPage {
                     </li>
                 </ul>
 
-                <button class="plan-button secondary" data-plan="basic" data-price="15">
+                <button class="plan-button secondary" data-plan="basic" data-price="24,99">
                     <i class="fas fa-shopping-cart"></i>
                     Escolher Plano
                 </button>
@@ -41,7 +41,7 @@ export class PricingPage {
                         <i class="fas fa-crown"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4">Premium</h3>
-                    <div class="text-4xl font-bold text-blue-400 mb-4">R$ 35<span class="text-lg text-gray-400">/7dias</span></div>
+                    <div class="text-4xl font-bold text-blue-400 mb-4">R$ 59,99<span class="text-lg text-gray-400">/7dias</span></div>
             
                 </div>
 
@@ -53,7 +53,7 @@ export class PricingPage {
                   
                 </ul>
 
-                <button class="plan-button primary" data-plan="premium" data-price="35">
+                <button class="plan-button primary" data-plan="premium" data-price="59,99">
                     <i class="fas fa-bolt"></i>
                     Começar Agora
                 </button>
@@ -66,7 +66,7 @@ export class PricingPage {
                         <i class="fas fa-rocket"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4">Pro</h3>
-                    <div class="text-4xl font-bold text-blue-400 mb-4">R$ 80<span class="text-lg text-gray-400">/1mês</span></div> 
+                    <div class="text-4xl font-bold text-blue-400 mb-4">R$ 199,00<span class="text-lg text-gray-400">/1mês</span></div> 
         
                 </div>
                 <ul class="plan-features">
@@ -78,7 +78,7 @@ export class PricingPage {
 
                 </ul>
 
-                <button class="plan-button secondary" data-plan="pro" data-price="80">
+                <button class="plan-button secondary" data-plan="pro" data-price="199,00">
                     <i class="fas fa-gem"></i>
                     Escolher Pro
                 </button>

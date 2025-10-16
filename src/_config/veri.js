@@ -46,44 +46,55 @@ export class AccessVerification {
 
     // Verificar acesso do usuário em ambos os nós
     async verifyUserAccess() {
-        if (!this.currentUser) {
-            this.showAccessDenied("Usuário não autenticado.");
+    if (!this.currentUser) {
+        this.forceLogout();
+        return;
+    }
+    
+    try {
+        // Buscar dados do usuário no nó /usuarios
+        const snapshotUsuarios = await database.ref("usuarios")
+            .orderByChild("email")
+            .equalTo(this.currentUser.email)
+            .once("value");
+        
+        if (snapshotUsuarios.exists()) {
+            const userData = Object.values(snapshotUsuarios.val())[0];
+            this.checkAccessStatus(userData);
             return;
         }
-
-        try {
-            // Buscar dados do usuário no nó /usuarios
-            const snapshotUsuarios = await database.ref("usuarios")
-                .orderByChild("email")
-                .equalTo(this.currentUser.email)
-                .once("value");
-            
-            if (snapshotUsuarios.exists()) {
-                const userData = Object.values(snapshotUsuarios.val())[0];
-                this.checkAccessStatus(userData);
-                return;
-            }
-
-            // Se não encontrou em /usuarios, buscar em /diom
-            const snapshotDiom = await database.ref("diom")
-                .orderByChild("email")
-                .equalTo(this.currentUser.email)
-                .once("value");
-            
-            if (snapshotDiom.exists()) {
-                const userData = Object.values(snapshotDiom.val())[0];
-                this.checkAccessStatus(userData);
-                return;
-            }
-
-            // Se não encontrou em nenhum dos nós
-            this.showAccessDenied("Usuário não encontrado no sistema. Entre em contato com o administrador.");
         
-        } catch (error) {
-            console.error("Erro ao verificar acesso:", error);
-            this.showAccessDenied("Erro ao verificar acesso. Tente novamente mais tarde.");
+        // Se não encontrou em /usuarios, buscar em /diom
+        const snapshotDiom = await database.ref("diom")
+            .orderByChild("email")
+            .equalTo(this.currentUser.email)
+            .once("value");
+        
+        if (snapshotDiom.exists()) {
+            const userData = Object.values(snapshotDiom.val())[0];
+            this.checkAccessStatus(userData);
+            return;
         }
+        
+        // Se não encontrou em nenhum dos nós - FORÇA LOGOUT
+        this.forceLogout();
+        
+    } catch (error) {
+        console.error("Erro ao verificar acesso:", error);
+        this.forceLogout();
     }
+}
+
+// Função simples para forçar logout
+async forceLogout() {
+    try {
+        await auth.signOut();
+        window.location.href = '#/login';
+    } catch (error) {
+        // Mesmo com erro, redireciona
+        window.location.href = '#/login';
+    }
+}
 
     // Verificar status do acesso
     checkAccessStatus(userData) {
