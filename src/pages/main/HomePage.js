@@ -94,7 +94,7 @@ export class HomePage {
       
       
       
-    }, 3700);
+    }, 6700);
     
     return html;
   }
