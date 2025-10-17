@@ -47,7 +47,7 @@ export class AccessVerification {
     // Verificar acesso do usuário em ambos os nós
     async verifyUserAccess() {
     if (!this.currentUser) {
-        this.forceLogout();
+       // this.forceLogout();
         return;
     }
     
@@ -77,24 +77,24 @@ export class AccessVerification {
         }
         
         // Se não encontrou em nenhum dos nós - FORÇA LOGOUT
-        this.forceLogout();
+        //this.forceLogout();
         
     } catch (error) {
         console.error("Erro ao verificar acesso:", error);
-        this.forceLogout();
+       // this.forceLogout();
     }
 }
 
 // Função simples para forçar logout
-async forceLogout() {
-    try {
-        await auth.signOut();
-        window.location.href = '#/login';
-    } catch (error) {
+//async forceLogout() {
+   // try {
+        //await auth.signOut();
+      //  window.location.href = '#/login';
+    //} catch (error) {
         // Mesmo com erro, redireciona
-        window.location.href = '#/login';
-    }
-}
+       // window.location.href = '#/login';
+   // }
+//}
 
     // Verificar status do acesso
     checkAccessStatus(userData) {
