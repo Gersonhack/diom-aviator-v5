@@ -11,10 +11,10 @@ export class NavbarTop {
   <div class="flex gap-2  items-center space-x-4">
   <img class="w-8 h-8 shadow-2xl rounded-full mr-4" src="/src/assents/imgs/logo.jpg" alt="">
   <div class="pl-8">
-  <span class="text-white font-bold text-xl">
+  <span class="text-white font-bold text-sm">
     Diom Aviator <i class="fas fa-crown text-cyan-300 text-lg animate-pulse"></i>
   </span>
-    <p class="text-blue-200 text-sm">Bot v5.0.0</p>
+    <p class="text-blue-200 text-xs">Bot v5.0.0</p>
   </div>
 </div>
 
