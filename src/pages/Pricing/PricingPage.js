@@ -92,6 +92,8 @@ export class PricingPage {
     } //Render
     
     afterRender() {
+        document.getElementById('root').classList.add('auto');
+
         // Adiciona event listeners aos botões
         const buttons = document.querySelectorAll('.plan-button');
         
