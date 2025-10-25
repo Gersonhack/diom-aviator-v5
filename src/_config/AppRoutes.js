@@ -39,7 +39,7 @@ export class Router {
   
   findMatchingRoute() {
     return this.routes.find(r => r.path === this.currentPath) ||
-      this.routes.find(r => r.path === '404');
+      this.routes.find(r => r.path === 'notfound');
   }
   
   async checkAuthState() {
