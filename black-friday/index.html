@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black Friday Diom</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #ff4444, 0 0 10px #ff4444, 0 0 15px #ff4444' },
+                            '100%': { boxShadow: '0 0 10px #ff4444, 0 0 20px #ff4444, 0 0 30px #ff4444' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 25%, #f1f5f9 50%, #e2e8f0 75%, #cbd5e1 100%);
+        }
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        .fire-text {
+            background: linear-gradient(45deg, #ff6b35, #ff4444, #ff3860);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .discount-badge {
+            background: linear-gradient(135deg, #ff3860, #ff6b35);
+            animation: pulse 2s infinite;
+        }
+        .strike-through {
+            position: relative;
+        }
+        .strike-through::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -5%;
+            width: 110%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ff3860, transparent);
+            transform: rotate(-5deg);
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4 font-sans">
+    <div class="max-w-4xl w-full mx-auto">
+        <!-- Header com animação -->
+        <div class="text-center mb-12 animate-float">
+            <div class="inline-block animate-glow bg-white/80 backdrop-blur-sm rounded-2xl px-8 py-4 shadow-xl border border-white/20">
+                <h1 class="text-5xl md:text-6xl font-black fire-text mb-4 animate-pulse">
+                    🔥 BLACK FRIDAY ADIANTADA DO DIOM! 🔥
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-700 font-semibold">
+                    Chegou antes da hora pra quem quer lucrar de verdade no Aviator! 💰✈️
+                </p>
+            </div>
+        </div>
+
+        <!-- Cards dos Produtos -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- Mentoria Aviator Plus -->
+            <div class="card-hover bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/20 animate-float" style="animation-delay: 0.2s;">
+                <div class="text-center mb-4">
+                    <span class="discount-badge text-white font-bold px-4 py-1 rounded-full text-sm animate-bounce">
+                        -23%
+                    </span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3 text-center">💥 Aviator Plus</h3>
+                <div class="text-center mb-4">
+                    <span class="strike-through text-gray-500 text-lg font-semibold">R$ 65</span>
+                    <div class="text-3xl font-black text-red-600 mt-1">R$ 50</div>
+                </div>
+                <ul class="text-gray-600 space-y-2 mb-6">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        15 módulos diretos ao ponto
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Aprenda rápido e lucre hoje
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Estratégias simplificadas
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Mentoria Segredos do Aviator -->
+            <div class="card-hover bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/20 animate-float" style="animation-delay: 0.4s;">
+                <div class="text-center mb-4">
+                    <span class="discount-badge text-white font-bold px-4 py-1 rounded-full text-sm animate-bounce">
+                        -40%
+                    </span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3 text-center">🎯 Segredos do Aviator</h3>
+                <div class="text-center mb-4">
+                    <span class="strike-through text-gray-500 text-lg font-semibold">R$ 499</span>
+                    <div class="text-3xl font-black text-red-600 mt-1">R$ 300</div>
+                </div>
+                <ul class="text-gray-600 space-y-2 mb-6">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        26 módulos completos
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Leitura de velas avançada
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Estratégias exclusivas
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Gestão profissional
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Mentoria 1000x -->
+            <div class="card-hover bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-2xl border border-white/20 animate-float" style="animation-delay: 0.6s;">
+                <div class="text-center mb-4">
+                    <span class="discount-badge text-white font-bold px-4 py-1 rounded-full text-sm animate-bounce">
+                        -29%
+                    </span>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3 text-center">🔥 Mentoria 1000x</h3>
+                <div class="text-center mb-4">
+                    <span class="strike-through text-gray-500 text-lg font-semibold">R$ 700</span>
+                    <div class="text-3xl font-black text-red-600 mt-1">R$ 500</div>
+                </div>
+                <ul class="text-gray-600 space-y-2 mb-6">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Busque os 1000x com segurança
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Leitura profissional
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Mentalidade de vencedor
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        Passo a passo detalhado
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Aviso Urgente -->
+        <div class="bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl p-6 text-white text-center shadow-2xl mb-8 animate-pulse-slow">
+            <div class="flex items-center justify-center mb-3">
+                <i class="fas fa-exclamation-triangle text-2xl mr-3 animate-bounce"></i>
+                <h2 class="text-2xl font-black">⚠️ Promoção ADIANTADA e por tempo LIMITADO!</h2>
+            </div>
+            <p class="text-lg font-semibold">
+                Depois volta tudo pro preço normal — aproveita enquanto tá rolando! 💨
+            </p>
+        </div>
+
+        <!-- Botão do Telegram -->
+        <div class="text-center animate-float" style="animation-delay: 0.8s;">
+            <a href="https://t.me/juliia_rs" 
+               target="_blank"
+               class="inline-flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold text-xl px-8 py-4 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-3xl">
+                <i class="fab fa-telegram text-2xl mr-3"></i>
+                 CHAMAR NO SUPORTE AGORA
+            </a>
+            <p class="text-gray-600 mt-3 text-sm font-semibold">
+                @juliia_rs - Suporte exclusivo no Telegram
+            </p>
+        </div>
+
+        <!-- Contador (opcional) -->
+        <div class="text-center mt-8">
+            <div class="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-xl px-6 py-3 shadow-lg">
+                <i class="fas fa-clock text-red-500 animate-pulse"></i>
+                <span class="text-gray-700 font-semibold">Oferta por tempo limitado!</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Efeito de digitação no título (opcional)
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.card-hover');
+            
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.2}s`;
+            });
+
+            // Efeito de brilho intermitente no botão
+            const button = document.querySelector('a[href*="t.me"]');
+            setInterval(() => {
+                button.classList.toggle('shadow-2xl');
+                button.classList.toggle('shadow-lg');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
