@@ -261,7 +261,7 @@ body {
 .outer-cont {
   padding: 12px 20px;
   border: none;
-  font-size: 1rem;
+  font-size: 13px;
   cursor: pointer;
   position: relative;
   background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
