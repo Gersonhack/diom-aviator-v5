@@ -10,8 +10,8 @@ export class ModalChatBot {
       </span>
     </div>
   
-<iframe 
- src="https://app.gptmaker.ai/widget/3E9EE96B27F51067DFF736158D09BF2D/iframe" 
+<<iframe 
+ src="https://app.gptmaker.ai/widget/3E9EEA6A82BEF09376CF36158D09BF2D/iframe" 
  width="100%" 
  style="height: 100%; min-height: 700px" 
  allow="microphone;" 
