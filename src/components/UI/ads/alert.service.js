@@ -9,7 +9,7 @@ class ServiceAlert {
     adTitle: "Live ao Vivo: Não Perca!",
     description: "Não perca os melhores momentos! Confira o cronograma dos horários da live na imagem e junte-se a nós no Telegram para uma experiência incrível!",
     buttonText: "Entrar no Grupo",
-        redirectUrl: "https://example.com/portfolio"
+        redirectUrl: "https://t.me/diomaviator"
     };
 
     // Mostrar alerta de serviço padrão
