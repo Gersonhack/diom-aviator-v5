@@ -221,14 +221,14 @@ body {
         }
         
         .ad-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #dc2626;
             margin-bottom: 5px;
         }
         
         .ad-description {
-            font-size: 14px;
+            font-size: 12px;
             color: #E4E4E4;
             line-height: 1.4;
         }
@@ -252,7 +252,7 @@ body {
             transform: translateY(-1px);
         }
         
-        /* From Uiverse.io by Spacious74 */ 
+        /* btn IA */ 
 .flex {
   display: flex;
   align-items: center;

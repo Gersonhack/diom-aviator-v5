@@ -49,7 +49,8 @@ render() {
 
   <div class="box-actions x" id="Btnchatbot" tabindex="0" role="menuitem">
     <i class="fas fa-robot"></i>
-    <span>IA DIOM SYSTEMS</span>
+    
+     <span> IA DIOM SYSTEMS</span>
     <button class="New">
     <span>Novo</span>
     </button>
