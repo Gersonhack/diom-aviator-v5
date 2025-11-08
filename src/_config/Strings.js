@@ -9,7 +9,7 @@ export const Mtx = {
     },//========= Config>_ ==========
     Link: {
       whatsapp: "https://wa.me/5527999876397",
-      telegram: "https://t.me/diomaviator",
+      telegram: "https://t.me/+Xn1aXmvTa6U5NDYx",
       instagram: "https://instagram.com/diom.aviator?igshid=M2RkZGJiMzhjOQ==",
       youtube: "https://youtube.com/@diomaviator1?si=NywRI0L4_urZZ92S"
     },
