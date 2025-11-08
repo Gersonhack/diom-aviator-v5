@@ -47,6 +47,14 @@ render() {
     <span>Redes Sociais</span>
   </div>
 
+  <div class="box-actions x" id="Btnchatbot" tabindex="0" role="menuitem">
+    <i class="fas fa-robot"></i>
+    <span>IA DIOM SYSTEMS</span>
+    <button class="New">
+    <span>Novo</span>
+    </button>
+  </div>
+
   <div class="box-actions x" id="suporte" tabindex="0" role="menuitem">
     <i class="fas fa-headset"></i>
     <span>Suporte</span>

@@ -1,3 +1,4 @@
+import { Mtx } from '/src/_config/Strings.js'
 export class Loading {
   render() {
     return `
@@ -13,7 +14,7 @@ export class Loading {
       
                   <div class="from">
                 <span>From</span>
-                <h1 class="company-name">Diom systems</h1>
+                <h1 class="company-name">${Mtx.App.Config.companyName}</h1>
             </div>
        </div>
 

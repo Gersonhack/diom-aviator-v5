@@ -174,7 +174,28 @@ if (!sessionStorage.getItem('popupShown') &&["IA DIOM AVIATOR "] && 1 > 0) {
       allow="microphone; camera"
     ></iframe>   
     `;
-    window.GPT_CHAT_IFRAME_ELEMENTS.containerIframe.style = "pointer-events: none;opacity: 0;transition: opacity 350ms ease-in-out, bottom 350ms ease-in-out;background: #fff;border: none; position: fixed; flex-direction: column; justify-content: space-between; box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; bottom: 90px; right: 40px; width: 0; max-width: 458px; height: 0; max-height: 824px; border-radius: 0.75rem; display: flex; z-index: 2147483646; overflow: hidden; left: unset;";
+  window.GPT_CHAT_IFRAME_ELEMENTS.containerIframe.style = `
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 350ms ease-in-out, bottom 350ms ease-in-out;
+  background: white;
+  border:none;
+  position: fixed;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+  bottom: 60px;
+  right: 70px;
+  width: 700px !important;
+  max-width: 700px;
+  height: 90vh;
+  max-height: 600px;
+  border-radius: 0.75rem;
+  display: flex;
+  z-index: 999;
+  overflow: hidden;
+  left: unset;
+`;
     document.body.appendChild(window.GPT_CHAT_IFRAME_ELEMENTS.containerIframe);
   
       }
@@ -263,7 +284,7 @@ if (!sessionStorage.getItem('popupShown') &&["IA DIOM AVIATOR "] && 1 > 0) {
       color: #E1E4E9;
       width: 300px;
       display: inline-block;
-      background: #1F2937DB;
+      background:#1F2937DB ;
       border: 1px solid #4f46e5;
       backdrop-filter: blur(4px);
       opacity: 0;

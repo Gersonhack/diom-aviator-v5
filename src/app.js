@@ -6,8 +6,11 @@ import { PricingPage } from '/src/pages/Pricing/PricingPage.js'
 import { LoginPage } from '/src/pages/auth/LoginPage.js';
 import { LoginService } from '/src/features/services/auth.service.js';
 import { NotFound } from '/src/pages/404/Not-found_Page.js';
-
+import { Mtx } from '/src/_config/Strings.js';
+import { Service,News } from '/src/components/UI/ads/alert.service.js';
 import '/src/_config/link.src.js';
+
+
 //import '/src/_config/veri.js'
 // Configuração das rotas
 export const routes = [
@@ -26,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
 setTimeout(() => {
 	new Router(routes);
 //	console.warn('run dev')
-}, 3700); //setTimeout loading home
-	
+
+}, Mtx.App.Config.timeInitializeApp); //setTimeout loading home
+
 	
 	document.addEventListener('click', (e) => {
 		if (e.target.matches('[data-link]')) {

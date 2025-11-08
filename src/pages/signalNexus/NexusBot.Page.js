@@ -8,13 +8,17 @@ import { Modalcurso } from '/src/components/UI/modal/modal.curso.js'
 
 import { Modalcalc } from '/src/components/UI/modal/Modal.calc.js'
 
-import { Modalsocial } from '/src/components/UI/modal/Modal.socil.js'
+import { Modalsocial } from '/src/components/UI/modal/Modal.socil.js';
 
-import  { Profile } from '/src/components/profile/Modal.profile.js'
+import { ModalChatBot } from '/src/components/UI/modal/Modal.Chat.bot.js';
 
-import { Live } from '/src/components/UI/modal/Modal.live.js'
+import  { Profile } from '/src/components/profile/Modal.profile.js';
 
-import 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'
+import { Live } from '/src/components/UI/modal/Modal.live.js';
+import { News } from '/src/components/UI/ads/alert.service.js';
+import { Mtx } from '/src/_config/Strings.js';
+
+import 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4';
 
 
 
@@ -22,10 +26,9 @@ import 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'
 export class NexusBotPage{
   
   render() {
-      
-      
+     
 const accessVerification = new AccessVerification();
-
+    const modalchatbot = new ModalChatBot()
     const logout = new Logout()
     const navbartop = new NavbarTop()
     const modalafiliad = new ModalAfiliad()
@@ -47,8 +50,10 @@ const accessVerification = new AccessVerification();
   ${modalcurso.render()}
   ${modalcalc.render()}
   ${modalsocial.render()}
+  ${modalchatbot.render()}
   ${profile.render()}
   ${live.render()}
+  
 
   <!-- Blur screen ofuscator -->
   <div class="ofus" id="blur">
@@ -60,7 +65,7 @@ const accessVerification = new AccessVerification();
   <div class="app-card">
     <div class="app-header">
      <img class="logoFb" src="/src/assents/imgs/Logo.jpg" alt="logo">
-      <p>Gerador De Sinais</p>
+      <p>${Mtx.App.Nexus.Text.gerador_s}</p>
     </div>
 
     <div class="form-container">
@@ -172,12 +177,14 @@ setTimeout(() => {
     // console.log('open bg loader')
     document.getElementById('bgL').style.display = 'none';
     document.getElementById('navtop').classList.add('Zindex')
+    News()
     // $('#welcome').play()
     var audio = $('#welcome')[0];
 audio.play();
 audio.volume = 0.2; // Define o volume para 50%
 audio.muted = false;
-}, 7300);
+}, Mtx.App.Nexus.Config.timeLoading_blur);
+
 
 // Logic
 document.getElementById('root').classList.add('auto');

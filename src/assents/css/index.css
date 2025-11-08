@@ -36,7 +36,7 @@ body {
     
 }
 .auto{
-    overflow-y: auto !important
+    overflow-y: auto !important;
 }
 
 .loading-spinner {
@@ -194,4 +194,114 @@ body {
         transform: scale(1);
         opacity: 1;
     }
+}
+
+
+        /* Estilos personalizados para o SweetAlert */
+
+        
+        .custom-ad-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .ad-image {
+            width: 140px;
+            height: 133px;
+            border-radius: 10px;
+
+            border: 1px solid #dc2626;
+        }
+        
+        .ad-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .ad-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 5px;
+        }
+        
+        .ad-description {
+            font-size: 14px;
+            color: #E4E4E4;
+            line-height: 1.4;
+        }
+        
+        .ad-button {
+            background: linear-gradient(45deg, #dc2626, #ef4444);
+            color: white;
+            border: none;
+            font-size: 12px;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            width: 100%;
+        }
+        
+        .ad-button:hover {
+            background: linear-gradient(45deg, #b91c1c, #dc2626);
+            transform: translateY(-1px);
+        }
+        
+        /* From Uiverse.io by Spacious74 */ 
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.outer-cont {
+  padding: 12px 20px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
+  border-radius: 12px;
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000,
+    0px 5px 10px #000000cc;
+  text-shadow: 1px 1px 1px #000;
+}
+.outer-cont::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 12px;
+  filter: blur(0);
+  z-index: -1;
+  box-shadow: none;
+  background: conic-gradient(
+    #00000000 80deg,
+    #40baf7,
+    #f34ad7,
+    #5bfcc4,
+    #00000000 280deg
+  );
+  transition: all 0.3s ease;
+}
+.outer-cont:hover::before {
+  filter: blur(15px);
+}
+.outer-cont:active::before {
+  filter: blur(5px);
+  transform: translateY(1px);
+}
+.outer-cont:active {
+  box-shadow:
+    inset 0px 0px 5px #ffffffa9,
+    inset 0px 35px 30px #000;
+  margin-top: 3px;
 }

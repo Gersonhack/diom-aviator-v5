@@ -1,8 +1,10 @@
 import { isUserAuth } from '/src/features/auth/auth.js';
-
+import { Mtx } from '/src/_config/Strings.js';
+import { Service } from '/src/components/UI/ads/alert.service.js';
 export class LoginPage {
   constructor() {
     isUserAuth(); 
+    Service()
   }
   
   render() {
@@ -12,7 +14,7 @@ export class LoginPage {
         <!-- Logo -->
         <div class="logo-section">
             <img class="logo-img" src="/src/assents/imgs/Logo.jpg" alt="Diom Aviator Logo">
-            <h1 class="logo-text">Diom Aviator</h1>
+            <h1 class="logo-text">${Mtx.App.Config.name}</h1>
         </div>
 
         <!-- Botão tema -->
@@ -22,38 +24,43 @@ export class LoginPage {
         <div class="login-card">
             <div class="login-header">
                 <h1>Entrar</h1>
-                <p>Bem-vindo ao Diom Aviator 5.0.0</p>
+                <p>Bem-vindo ao ${Mtx.App.Config.name} ${Mtx.App.Config.version}</p>
             </div>
             
             <form id="login-form">
                 <div class="input-group">
-                    <label for="email">Email</label>
+                    <label for="email">${Mtx.App.Login.label_email}</label>
                     <input type="email" id="email" required>
                 </div>
                 
                 <div class="input-group">
-                    <label for="password">Senha</label>
+                    <label for="password">${Mtx.App.Login.label_senha}</label>
                     <input type="password" id="password" required>
                     <button type="button" id="toggle-password" class="toggle-password">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                            <circle cx="12" cy="12" r="3"></circle>
-                        </svg>
+                        ${Mtx.App.Login.svg_eye}
                     </button>
                 </div>
                 
                 <div class="options">
                     <div class="remember-me">
                         <input type="checkbox" id="remember">
-                        <label for="remember">Mantenha-me com sessão iniciada</label>
+                        <label for="remember">
+                        ${Mtx.App.Login.label_remember}
+                        </label>
                     </div>
                 </div>
                 
-                <button type="submit" class="login-button">Entrar</button>
+                <button type="submit" class="login-button">
+                ${Mtx.App.Login.btn_login}
+                </button>
             </form>
             
             <div class="signup-link">
-                <p>Não tem uma conta? <a href="#/pricing">Cadastre-se</a></p>
+                <p>
+                ${Mtx.App.Login.SignupLink.label_primary}
+                <a href="${Mtx.App.Login.SignupLink.route_pricing}">
+                ${Mtx.App.Login.SignupLink.label_secundary}
+                </a></p>
             </div>
         </div>
     </div>

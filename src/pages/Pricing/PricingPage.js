@@ -1,3 +1,4 @@
+import { Mtx } from '/src/_config/Strings.js';
 export class PricingPage {
     
     render() {
@@ -5,7 +6,7 @@ export class PricingPage {
      <section class="pricing-section">
         <div class="section-header">
             <h1>Escolha Seu Plano</h1>
-            <p>Selecione o plano ideal para suas necessidades e comece a lucrar hoje mesmo</p>
+            <p>${Mtx.App.Pricing.title}</p>
         </div>
 
         <div class="pricing-grid">

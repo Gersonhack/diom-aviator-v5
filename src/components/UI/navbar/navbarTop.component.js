@@ -1,8 +1,9 @@
 import { ModalNexus } from '/src/components/UI/modal/Modal.nexus.js';
-
+import { Mtx } from '/src/_config/Strings.js';
 export class NavbarTop {
   render(){
     const modalnexus = new ModalNexus()
+    //<i class="fas fa-crown  animate-pulse"></i>
     return`
   <nav class="navbarTop" id="navtop">
 
@@ -12,9 +13,11 @@ export class NavbarTop {
   <img class="w-8 h-8 shadow-2xl rounded-full mr-4" src="/src/assents/imgs/logo.jpg" alt="">
   <div class="pl-8">
   <span class="text-white font-bold text-sm">
-    Diom Aviator <i class="fas fa-crown text-cyan-300 text-lg animate-pulse"></i>
+    ${Mtx.App.Config.name}
+
+    <i class="fas  fa-sparkles text-cyan-300 text-lg"></i>
   </span>
-    <p class="text-blue-200 text-xs">Bot v5.0.0</p>
+    <p class="text-blue-200 text-xs">Bot ${Mtx.App.Config.version}</p>
   </div>
 </div>
 

@@ -2,8 +2,6 @@
 const links = [
   '/src/assents/css/pages/loginPage.css',
   
-  
-  
 ];
 
 links.forEach((link) => {
