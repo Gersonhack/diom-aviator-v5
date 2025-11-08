@@ -3,7 +3,7 @@ import { Mtx } from '/src/_config/Strings.js';
 export class NavbarTop {
   render(){
     const modalnexus = new ModalNexus()
-    //<i class="fas fa-crown  animate-pulse"></i>
+    //<i class="fas fa-crown  animate-pulse"></i>g
     return`
   <nav class="navbarTop" id="navtop">
 
