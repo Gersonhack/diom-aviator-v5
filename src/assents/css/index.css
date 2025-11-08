@@ -221,7 +221,7 @@ body {
         }
         
         .ad-title {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             color: #dc2626;
             margin-bottom: 5px;
@@ -259,9 +259,10 @@ body {
   gap: 5px;
 }
 .outer-cont {
-  padding: 12px 20px;
+  padding: 12px 15px;
   border: none;
-  font-size: 13px;
+ height: 40px;
+  font-size: 11px;
   cursor: pointer;
   position: relative;
   background: linear-gradient(90deg, #5bfcc4, #f593e4, #71a4f0);
