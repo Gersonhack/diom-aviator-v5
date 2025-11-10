@@ -1,8 +1,8 @@
 export const Mtx = {
   App: {
     Config: {
-      timeLoading_screen: 6700,
-      timeInitializeApp: 3700,
+      timeLoading_screen: 2500,
+      timeInitializeApp: 2000,
       name: "DIOM AVIATOR",
       version: "5.0.0",
       companyName: "DIOM SYSTEMS"

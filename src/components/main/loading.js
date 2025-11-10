@@ -1,7 +1,8 @@
 import { Mtx } from '/src/_config/Strings.js'
 export class Loading {
   render() {
-    return `
+    
+    const html = `
       <div class="loading">
       <img class="logoFb" src="/src/assents/imgs/Logo.jpg" alt="logo">
          <div class="container">
@@ -20,5 +21,19 @@ export class Loading {
 
       </div>
     `;
-  }
+this.afterRender = this.afterRender.bind(this);
+setTimeout(() => this.afterRender(), 0);
+return html;
 }
+afterRender() {
+  setTimeout(() => {
+    //loading 2
+   // document.querySelector('.loading').remove();
+   // document.getElementById('root').classList.add('auto');
+   window.location.href='#/nexus'
+    
+    
+    
+  }, Mtx.App.Config.timeLoading_screen);
+} //after 
+  }

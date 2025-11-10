@@ -1,13 +1,13 @@
-import { Loading } from '/src/components/main/loading.js';
+
 import { Mtx } from '/src/_config/Strings.js';
 export class HomePage {
-  async render() {
+   render() {
     
-    const loading = new Loading();
+    
     
     
     const html = `
-      ${loading.render()}
+    
       
   <section class="home">
     <div class="home-container">
@@ -85,16 +85,13 @@ export class HomePage {
     </footer>
     </section>
     `;
-    
-    setTimeout(() => {
-      //loading 2
-   //   document.querySelector('.loading').remove();
-      document.getElementById('root').classList.add('auto');
-      
-      
-      
-    }, Mtx.App.Config.timeLoading_screen );
-    
-    return html;
-  }
+    this.afterRender = this.afterRender.bind(this);
+setTimeout(() => this.afterRender(), 0);
+return html;
+}
+afterRender() {
+    document.getElementById('root').classList.add('auto');
+
+}//after 
+
 }

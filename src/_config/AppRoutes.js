@@ -1,5 +1,5 @@
 import { auth } from '/src/_config/config.db.js'
-
+import { Mtx } from '/src/_config/Strings.js'
 
 
 export class Router {
@@ -67,7 +67,7 @@ export class Router {
   
   redirectToDashboard() {
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/nexus';
-    
+    console.log("redirect nexus")
     sessionStorage.removeItem('redirectAfterLogin');
     this.navigate(redirectUrl);
     return;
@@ -88,12 +88,16 @@ export class Router {
        // console.warn('Usuário autenticado:', user.email);
       setTimeout(() => {
   this.navigate('/nexus');
-}, 3700);
+
+}, Mtx.App.Config.timeLoading_screen);
 
         
         // Se estiver na página de login e se autenticar, redireciona
         if (this.currentPath === '/login') {
           this.redirectToDashboard();
+        }else if(this.currentPath == '/'){
+        
+          
         }
       } else {
         console.log('Usuário não autenticado');

@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  transition: opacity 1s ease-in-out 1s;
+  transition: opacity 3s ease-in-out 3s;
 
 }
       .container {
@@ -40,19 +40,19 @@
       }
 
       .div2 {
-        animation: animer 2s;
+        animation: animer 1s;
       }
 
       .div3 {
-        animation: animer 3s
+        animation: animer 2s
       }
 
       .div4 {
-        animation: animer 4s;
+        animation: animer 3s;
       }
 
       .div5 {
-        animation: animer 5s;
+        animation: animer 4s;
       }
 
   
