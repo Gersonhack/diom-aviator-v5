@@ -61,13 +61,13 @@ export class Router {
   redirectToLogin() {
     // Guarda a rota original para redirecionamento pós-login
     sessionStorage.setItem('redirectAfterLogin', this.currentPath);
-    this.navigate('/login');
+    this.navigate('/home');
+    
     return;
   }
   
   redirectToDashboard() {
     const redirectUrl = sessionStorage.getItem('redirectAfterLogin') || '/nexus';
-    console.log("redirect nexus")
     sessionStorage.removeItem('redirectAfterLogin');
     this.navigate(redirectUrl);
     return;
@@ -99,10 +99,11 @@ export class Router {
       } else {
       //  console.log('Usuário não autenticado');
         // Se estiver em rota protegida e deslogar, redireciona
-        this.navigate('/home')
+       // this.navigate('/home')
         const currentRoute = this.findMatchingRoute();
         if (currentRoute?.protected) {
           this.redirectToLogin();
+          
         }
       }
     });
