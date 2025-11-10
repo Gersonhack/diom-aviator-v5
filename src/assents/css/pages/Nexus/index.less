@@ -87,13 +87,23 @@ width: 50px;
 justify-content: center;
 align-items: center;
 flex-direction: column;
+gap:2px;
 
 img{
   height: 80px;
-width: 80px;
-filter: drop-shadow(5px 5px 10px #000000);
+width: 100px;
+border-radius: 18px;
+filter: drop-shadow(5px 5px 10px #42445A);
+//backdrop-filter: blur(4px);
 }
+
+p{
+  backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 0 rgba(255, 255, 255, 0.192),
+    inset 0 0 0 rgba(255, 255, 255, 0.274), 4px 10px 13px rgba(0, 0, 0, 0.164);
 }
+
+}//App header
 
 .user-info {
   display: flex;
@@ -234,6 +244,8 @@ font-family: 'Alegreya', sans-serif;
   font-size: 13px;
   background: #1F2937DB !important;
   backdrop-filter: blur(4px);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.192),
+    inset 0 0 5px rgba(255, 255, 255, 0.274), 0 5px 5px rgba(0, 0, 0, 0.164);
   color: @text-color;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
@@ -621,4 +633,32 @@ background-color: #374151;
   .roxo{
     background:#970CDC !important;
   }
+}
+
+
+
+    .mac-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.mac-header span {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.mac-header .red {
+  background-color: #ff5f57;
+}
+
+.mac-header .yellow {
+  background-color: #ffbd2e;
+}
+
+.mac-header .green {
+background-color: #28c941;
 }

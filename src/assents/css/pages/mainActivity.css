@@ -2,7 +2,7 @@
 
   
 .mainActivity {
-background: linear-gradient(135deg, #ffffff 0%, #f8faff 25%, #f0f4ff 50%, #e8eeff 75%, #e0e7ff 100%);
+background: linear-gradient(135deg, #EEFFFF 0%, #F2F6FF 25%, #E8EEFF 50%, #DDDEF0 75%, #e0e7ff 100%);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +17,7 @@ justify-content: center;
   height: 120px;
   width: 120px;
   border-radius: 50px;
+  
 }
 .anim{
   animation: fadeIn 1s ease-in-out;

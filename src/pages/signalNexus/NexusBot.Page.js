@@ -40,12 +40,22 @@ const accessVerification = new AccessVerification();
     const html = `
     
 <section class="containerN">
-  <!-- Loading Nexus bot -->
+  <!-- Loading blur Nexus bot -->
   <div class="bgloading" id="bgL">
+<div class="box-conection">
+<p class="conection" lang="ing">
+Conection...
+</p>
+<!-- <div class="loader-progress"></div> --> 
+
+
+
+</div>
 
   </div>
 
   ${navbartop.render()}
+  
   ${modalafiliad.render()}
   ${modalcurso.render()}
   ${modalcalc.render()}
@@ -64,7 +74,7 @@ const accessVerification = new AccessVerification();
 
   <div class="app-card">
     <div class="app-header">
-     <img class="logoFb" src="/src/assents/imgs/Logo.jpg" alt="logo">
+     <img class="nexus-logo" src="/src/assents/imgs/Logo.jpg" alt="logo">
       <p>${Mtx.App.Nexus.Text.gerador_s}</p>
     </div>
 
@@ -116,9 +126,13 @@ const accessVerification = new AccessVerification();
   </div>
 
   <form action="/generate">
-    <div class="results-container">
+    <section class="results-container">
       <div class="result-section">
-        <h2 class="title"><i class="fas fa-list"></i> Resultado Busca</h2>
+
+        <h2 class="title"><i class="fas fa-list"></i>
+        
+        Resultado Busca</h2>
+        
         <ul id="lista2" class="signal-list">
           <div class="grid-background"></div>
         </ul>
@@ -146,7 +160,40 @@ const accessVerification = new AccessVerification();
           </div>
         </ul>
       </div>
-    </div>
+      
+       <div class="result-section console">
+         <h2 class="title">
+         <i class="fa fa-terminal" aria-hidden="true"></i>
+         Console
+         </h2>
+        
+           <div class="info-item">
+            <span class="info-label">Tempo Online:</span>
+            <span class="info-value" id="tempoOnline">0h 0m 0s</span>
+        </div>
+        
+        <div class="info-item" id="statusItem">
+            <span class="info-label">Status:</span>
+            <span class=" online" id="status">Online</span>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-label">Dispositivo:</span>
+            <span class="info-value" id="dispositivo">
+                <span class="device-icon" id="deviceIcon"></span>
+                <span id="deviceName">Carregando...</span>
+            </span>
+        </div>
+        
+
+        <div class="info-item">
+            <span class="info-label">Sistema Operacional:</span>
+            <span class="info-value" id="sistemaOperacional">Verificando...</span>
+        </div>
+          
+       </div>
+      
+    </section>
   </form>
 
   <audio id="clickSound" src="/public/assents/music/alert-signal.wav"></audio>
@@ -816,6 +863,406 @@ function updateTime() {
 }
 
 let timeInterval = setInterval(updateTime, 1000);
+
+
+
+        // Device Detector - Sistema de Detecção de Dispositivos
+class DeviceDetector {
+    constructor() {
+        this.startTime = Date.now();
+        this.isOnline = navigator.onLine;
+        this.userAgent = navigator.userAgent;
+        
+        this.init();
+    }
+
+    init() {
+        this.detectDevice();
+  //      this.detectBrowser();
+        this.detectOS();
+     //   this.updateResolution();
+        this.startTimers();
+        this.setupEventListeners();
+        
+     //   console.log('🔍 Device Detector iniciado!');
+     //   console.log('User Agent:', this.userAgent);
+    }
+
+    // Detectar tipo de dispositivo
+    detectDevice() {
+        const deviceElement = document.getElementById('deviceName');
+        const iconElement = document.getElementById('deviceIcon');
+        
+        let deviceType = 'Desconhecido';
+      //  let icon = '❓';
+
+        // Detectar iPhone
+        if (/iPhone/i.test(this.userAgent)) {
+            deviceType = 'iPhone';
+         //   icon = ' ';
+        }
+        // Detectar iPad
+        else if (/iPad/i.test(this.userAgent)) {
+            deviceType = 'iPad';
+         //   icon = ' ';
+        }
+        // Detectar Android Phone
+        else if (/Android/i.test(this.userAgent) && /Mobile/i.test(this.userAgent)) {
+            deviceType = 'Android';
+          //  icon = ' ';
+        }
+        // Detectar Android Tablet
+        else if (/Android/i.test(this.userAgent) && !/Mobile/i.test(this.userAgent)) {
+            deviceType = 'Android Tablet';
+          //  icon = ' ';
+        }
+        // Detectar Windows Phone
+        else if (/Windows Phone/i.test(this.userAgent)) {
+            deviceType = 'Windows Phone';
+//icon = ' ';
+        }
+        // Detectar BlackBerry
+        else if (/BlackBerry/i.test(this.userAgent)) {
+            deviceType = 'BlackBerry';
+           // icon = ' ';
+        }
+        // Detectar Desktop/PC
+        else if (/Windows/i.test(this.userAgent)) {
+            deviceType = 'PC Windows';
+            //icon = '💻';
+        }
+        // Detectar Mac
+        else if (/Macintosh|Mac OS X/i.test(this.userAgent)) {
+            deviceType = 'Mac';
+          //  icon = '🖥️';
+        }
+        // Detectar Linux
+        else if (/Linux/i.test(this.userAgent)) {
+            deviceType = 'PC Linux';
+          //  icon = '💻';
+        }
+        // Detectar Smart TV
+        else if (/Smart-TV|SmartTV|GoogleTV|AppleTV/i.test(this.userAgent)) {
+            deviceType = 'Smart TV';
+            //icon = ' ';
+        }
+        // Detectar Game Console
+        else if (/PlayStation|Xbox|Nintendo/i.test(this.userAgent)) {
+            deviceType = 'Game Console';
+         //   icon = ' ';
+        }
+
+        // Verificação adicional para dispositivos móveis
+        if (this.isMobileDevice()) {
+            if (deviceType === 'Desconhecido') {
+                deviceType = 'Dispositivo Móvel';
+              //  icon = ' ';
+            }
+        } else if (deviceType === 'Desconhecido') {
+            deviceType = 'Desktop';
+           // icon = '💻';
+        }
+
+        deviceElement.textContent = deviceType;
+        //iconElement.textContent = icon;
+    }
+
+    // Verificar se é dispositivo móvel
+    isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(this.userAgent) ||
+               (window.innerWidth <= 768 && 'ontouchstart' in window);
+    }
+
+    // Detectar navegador
+    
+
+    // Detectar sistema operacional
+    detectOS() {
+        const osElement = document.getElementById('sistemaOperacional');
+        let os = 'Desconhecido';
+
+        if (/Windows NT 10.0/i.test(this.userAgent)) {
+            os = '🪟 Windows 10/11';
+        } else if (/Windows NT 6.3/i.test(this.userAgent)) {
+            os = '🪟 Windows 8.1';
+        } else if (/Windows NT 6.2/i.test(this.userAgent)) {
+            os = '🪟 Windows 8';
+        } else if (/Windows NT 6.1/i.test(this.userAgent)) {
+            os = '🪟 Windows 7';
+        } else if (/Windows/i.test(this.userAgent)) {
+            os = '🪟 Windows';
+        } else if (/iPhone OS|iOS/i.test(this.userAgent)) {
+            const version = this.userAgent.match(/OS (\d+_\d+)/);
+            os = version ? `iOS ${version[1].replace('_', '.')}` : 'iOS';
+        } else if (/Android/i.test(this.userAgent)) {
+            const version = this.userAgent.match(/Android (\d+\.?\d*)/);
+            os = version ? `Android ${version[1]}` : 'Android';
+        } else if (/Mac OS X/i.test(this.userAgent)) {
+            const version = this.userAgent.match(/Mac OS X (\d+[._]\d+)/);
+            os = version ? `macOS ${version[1].replace('_', '.')}` : 'macOS';
+        } else if (/Linux/i.test(this.userAgent)) {
+            os = '🐧 Linux';
+        } else if (/CrOS/i.test(this.userAgent)) {
+            os = '📚 Chrome OS';
+        }
+
+        osElement.textContent = os;
+    }
+
+    // Atualizar resolução da tela
+    
+    // Atualizar tempo online
+    updateOnlineTime() {
+        const tempoElement = document.getElementById('tempoOnline');
+        const now = Date.now();
+        const diff = now - this.startTime;
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        tempoElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    // Atualizar status de conexão
+    updateConnectionStatus() {
+        const statusElement = document.getElementById('status');
+        const statusItem = document.getElementById('statusItem');
+        
+        this.isOnline = navigator.onLine;
+        
+        if (this.isOnline) {
+            statusElement.innerHTML = '<span>Online</span>';
+            statusItem.classList.remove('status-offline');
+            statusItem.classList.add('status-online');
+        } else {
+            statusElement.textContent = '🔴 Offline';
+            statusItem.classList.remove('status-online');
+            statusItem.classList.add('status-offline');
+        }
+    }
+
+    // Iniciar timers
+    startTimers() {
+        // Atualizar tempo online a cada segundo
+        setInterval(() => {
+            this.updateOnlineTime();
+        }, 1000);
+
+        // Verificar status de conexão a cada 5 segundos
+        setInterval(() => {
+            this.updateConnectionStatus();
+        }, 5000);
+
+        // Atualizar resolução quando a janela for redimensionada
+        window.addEventListener('resize', () => {
+          //  this.updateResolution();
+        });
+
+        // Atualizar status inicial
+        this.updateConnectionStatus();
+    }
+
+    // Configurar event listeners
+    setupEventListeners() {
+        // Detectar mudanças de conexão
+        window.addEventListener('online', () => {
+            this.updateConnectionStatus();
+        //    console.log('🟢 Conexão restaurada');
+        });
+
+        window.addEventListener('offline', () => {
+            this.updateConnectionStatus();
+       //     console.log('🔴 Conexão perdida');
+        });
+
+        // Detectar mudanças de orientação (mobile)
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+              //  this.updateResolution();
+            }, 100);
+        });
+    }
+
+    // Obter informações detalhadas do dispositivo
+    getDeviceInfo() {
+        return {
+            userAgent: this.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            cookieEnabled: navigator.cookieEnabled,
+            onLine: navigator.onLine,
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+            colorDepth: screen.colorDepth,
+            pixelDepth: screen.pixelDepth,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            touchSupport: 'ontouchstart' in window,
+            deviceMemory: navigator.deviceMemory || 'N/A',
+            hardwareConcurrency: navigator.hardwareConcurrency || 'N/A'
+        };
+    }
+
+    // Detectar características específicas
+    detectFeatures() {
+        const features = {
+            touchScreen: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+            geolocation: 'geolocation' in navigator,
+            camera: 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices,
+            bluetooth: 'bluetooth' in navigator,
+            serviceWorker: 'serviceWorker' in navigator,
+            webGL: this.hasWebGL(),
+            localStorage: this.hasLocalStorage(),
+            sessionStorage: this.hasSessionStorage(),
+            indexedDB: 'indexedDB' in window,
+            webRTC: this.hasWebRTC()
+        };
+
+        //console.log('🔧 Características do dispositivo:', features);
+        return features;
+    }
+
+    // Verificar suporte a WebGL
+    hasWebGL() {
+        try {
+            const canvas = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext && canvas.getContext('webgl'));
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Verificar suporte a localStorage
+    hasLocalStorage() {
+        try {
+            return 'localStorage' in window && window.localStorage !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Verificar suporte a sessionStorage
+    hasSessionStorage() {
+        try {
+            return 'sessionStorage' in window && window.sessionStorage !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Verificar suporte a WebRTC
+    hasWebRTC() {
+        return !!(window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection);
+    }
+}
+
+// Função para atualizar informações (chamada pelo botão)
+function atualizarInformacoes() {
+    const button = document.querySelector('.refresh-btn');
+    const deviceInfo = document.querySelector('.device-info');
+    
+    // Adicionar efeito de loading
+    button.classList.add('loading');
+    deviceInfo.style.opacity = '0.7';
+    
+    // Simular carregamento
+    setTimeout(() => {
+        // Recriar o detector para atualizar todas as informações
+        window.deviceDetector = new DeviceDetector();
+        
+        // Remover efeito de loading
+        button.classList.remove('loading');
+        deviceInfo.style.opacity = '1';
+        
+      //  console.log('🔄 Informações atualizadas!');
+    }, 500);
+}
+
+// Função para obter apenas as informações básicas (para uso em outros projetos)
+function getBasicDeviceInfo() {
+    const detector = new DeviceDetector();
+    const info = detector.getDeviceInfo();
+    
+    return {
+        tempoOnline: formatTime(Date.now() - detector.startTime),
+        status: navigator.onLine ? 'Online' : 'Offline',
+        dispositivo: getDeviceType(),
+       // navegador: getBrowserName(),
+        sistemaOperacional: getOSName(),
+      //  resolucao: `${screen.width}x${screen.height}`
+    };
+}
+
+// Funções auxiliares para uso independente
+function getDeviceType() {
+    const ua = navigator.userAgent;
+    
+    if (/iPhone/i.test(ua)) return 'iPhone';
+    if (/iPad/i.test(ua)) return 'iPad';
+    if (/Android/i.test(ua) && /Mobile/i.test(ua)) return 'Android Phone';
+    if (/Android/i.test(ua) && !/Mobile/i.test(ua)) return 'Android Tablet';
+    if (/Windows Phone/i.test(ua)) return 'Windows Phone';
+    if (/BlackBerry/i.test(ua)) return 'BlackBerry';
+    if (/Windows/i.test(ua)) return 'PC Windows';
+    if (/Macintosh|Mac OS X/i.test(ua)) return 'Mac';
+    if (/Linux/i.test(ua)) return 'PC Linux';
+    
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ? 'Mobile' : 'Desktop';
+}
+
+function getBrowserName() {
+    const ua = navigator.userAgent;
+    
+    if (/Chrome/i.test(ua) && !/Edge|Edg/i.test(ua)) return 'Chrome';
+    if (/Firefox/i.test(ua)) return 'Firefox';
+    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
+    if (/Edge|Edg/i.test(ua)) return 'Edge';
+    if (/Opera|OPR/i.test(ua)) return 'Opera';
+    if (/MSIE|Trident/i.test(ua)) return 'Internet Explorer';
+    
+    return 'Desconhecido';
+}
+
+function getOSName() {
+    const ua = navigator.userAgent;
+    
+    if (/Windows NT 10.0/i.test(ua)) return 'Windows 10/11';
+    if (/Windows/i.test(ua)) return 'Windows';
+    if (/iPhone OS|iOS/i.test(ua)) return 'iOS';
+    if (/Android/i.test(ua)) return 'Android';
+    if (/Mac OS X/i.test(ua)) return 'macOS';
+    if (/Linux/i.test(ua)) return 'Linux';
+    
+    return 'Desconhecido';
+}
+
+function formatTime(milliseconds) {
+    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+    
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
+
+// Inicializar quando a página carregar
+//document.addEventListener('DOMContentLoaded', () => {
+    window.deviceDetector = new DeviceDetector();
+    
+    // Detectar características do dispositivo
+    const features = window.deviceDetector.detectFeatures();
+    
+    // Tornar funções disponíveis globalmente
+    window.getBasicDeviceInfo = getBasicDeviceInfo;
+    window.getDeviceType = getDeviceType;
+ //   window.getBrowserName = getBrowserName;
+    window.getOSName = getOSName;
+    
+    
+//});
+
+
 
 }//after
 }

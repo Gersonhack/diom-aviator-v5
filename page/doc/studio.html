@@ -1,11 +1,551 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Title</title>
-    meta
-  </head>
-  <body>
-    body
-  </body>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detector de Dispositivo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .device-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: white;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .device-info h2 {
+            margin-bottom: 25px;
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .info-label {
+            font-weight: 500;
+            color: #e0e0e0;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+
+        .status-online {
+            color: #4CAF50;
+            border-left-color: #4CAF50;
+        }
+
+        .status-offline {
+            color: #f44336;
+            border-left-color: #f44336;
+        }
+
+        .device-icon {
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        .refresh-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .device-info {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            .info-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="device-info">
+        <h2>📱 Informações do Sistema</h2>
+        
+        <div class="info-item">
+            <span class="info-label">Tempo Online:</span>
+            <span class="info-value" id="tempoOnline">0h 0m 0s</span>
+        </div>
+        
+        <div class="info-item" id="statusItem">
+            <span class="info-label">Status:</span>
+            <span class="info-value" id="status">Online</span>
+        </div>
+        
+        <div class="info-item">
+            <span class="info-label">Dispositivo:</span>
+            <span class="info-value" id="dispositivo">
+                <span class="device-icon" id="deviceIcon">💻</span>
+                <span id="deviceName">Carregando...</span>
+            </span>
+        </div>
+        
+
+        <div class="info-item">
+            <span class="info-label">Sistema Operacional:</span>
+            <span class="info-value" id="sistemaOperacional">Verificando...</span>
+        </div>
+
+        <button class="refresh-btn" onclick="atualizarInformacoes()">
+            🔄 Atualizar Informações
+        </button>
+    </div>
+
+    <script src="device-detector.js"></script>
+    <script>
+        // Device Detector - Sistema de Detecção de Dispositivos
+class DeviceDetector {
+    constructor() {
+        this.startTime = Date.now();
+        this.isOnline = navigator.onLine;
+        this.userAgent = navigator.userAgent;
+        
+        this.init();
+    }
+
+    init() {
+        this.detectDevice();
+  //      this.detectBrowser();
+        this.detectOS();
+     //   this.updateResolution();
+        this.startTimers();
+        this.setupEventListeners();
+        
+        console.log('🔍 Device Detector iniciado!');
+        console.log('User Agent:', this.userAgent);
+    }
+
+    // Detectar tipo de dispositivo
+    detectDevice() {
+        const deviceElement = document.getElementById('deviceName');
+        const iconElement = document.getElementById('deviceIcon');
+        
+        let deviceType = 'Desconhecido';
+        let icon = '❓';
+
+        // Detectar iPhone
+        if (/iPhone/i.test(this.userAgent)) {
+            deviceType = 'iPhone';
+            icon = '📱';
+        }
+        // Detectar iPad
+        else if (/iPad/i.test(this.userAgent)) {
+            deviceType = 'iPad';
+            icon = '📱';
+        }
+        // Detectar Android Phone
+        else if (/Android/i.test(this.userAgent) && /Mobile/i.test(this.userAgent)) {
+            deviceType = 'Android Phone';
+            icon = '📱';
+        }
+        // Detectar Android Tablet
+        else if (/Android/i.test(this.userAgent) && !/Mobile/i.test(this.userAgent)) {
+            deviceType = 'Android Tablet';
+            icon = '📱';
+        }
+        // Detectar Windows Phone
+        else if (/Windows Phone/i.test(this.userAgent)) {
+            deviceType = 'Windows Phone';
+            icon = '📱';
+        }
+        // Detectar BlackBerry
+        else if (/BlackBerry/i.test(this.userAgent)) {
+            deviceType = 'BlackBerry';
+            icon = '📱';
+        }
+        // Detectar Desktop/PC
+        else if (/Windows/i.test(this.userAgent)) {
+            deviceType = 'PC Windows';
+            icon = '💻';
+        }
+        // Detectar Mac
+        else if (/Macintosh|Mac OS X/i.test(this.userAgent)) {
+            deviceType = 'Mac';
+            icon = '🖥️';
+        }
+        // Detectar Linux
+        else if (/Linux/i.test(this.userAgent)) {
+            deviceType = 'PC Linux';
+            icon = '💻';
+        }
+        // Detectar Smart TV
+        else if (/Smart-TV|SmartTV|GoogleTV|AppleTV/i.test(this.userAgent)) {
+            deviceType = 'Smart TV';
+            icon = '📺';
+        }
+        // Detectar Game Console
+        else if (/PlayStation|Xbox|Nintendo/i.test(this.userAgent)) {
+            deviceType = 'Game Console';
+            icon = '🎮';
+        }
+
+        // Verificação adicional para dispositivos móveis
+        if (this.isMobileDevice()) {
+            if (deviceType === 'Desconhecido') {
+                deviceType = 'Dispositivo Móvel';
+                icon = '📱';
+            }
+        } else if (deviceType === 'Desconhecido') {
+            deviceType = 'Desktop';
+            icon = '💻';
+        }
+
+        deviceElement.textContent = deviceType;
+        iconElement.textContent = icon;
+    }
+
+    // Verificar se é dispositivo móvel
+    isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(this.userAgent) ||
+               (window.innerWidth <= 768 && 'ontouchstart' in window);
+    }
+
+    // Detectar navegador
+    
+
+    // Detectar sistema operacional
+    detectOS() {
+        const osElement = document.getElementById('sistemaOperacional');
+        let os = 'Desconhecido';
+
+        if (/Windows NT 10.0/i.test(this.userAgent)) {
+            os = '🪟 Windows 10/11';
+        } else if (/Windows NT 6.3/i.test(this.userAgent)) {
+            os = '🪟 Windows 8.1';
+        } else if (/Windows NT 6.2/i.test(this.userAgent)) {
+            os = '🪟 Windows 8';
+        } else if (/Windows NT 6.1/i.test(this.userAgent)) {
+            os = '🪟 Windows 7';
+        } else if (/Windows/i.test(this.userAgent)) {
+            os = '🪟 Windows';
+        } else if (/iPhone OS|iOS/i.test(this.userAgent)) {
+            const version = this.userAgent.match(/OS (\d+_\d+)/);
+            os = version ? `📱 iOS ${version[1].replace('_', '.')}` : '📱 iOS';
+        } else if (/Android/i.test(this.userAgent)) {
+            const version = this.userAgent.match(/Android (\d+\.?\d*)/);
+            os = version ? `🤖 Android ${version[1]}` : '🤖 Android';
+        } else if (/Mac OS X/i.test(this.userAgent)) {
+            const version = this.userAgent.match(/Mac OS X (\d+[._]\d+)/);
+            os = version ? `🍎 macOS ${version[1].replace('_', '.')}` : '🍎 macOS';
+        } else if (/Linux/i.test(this.userAgent)) {
+            os = '🐧 Linux';
+        } else if (/CrOS/i.test(this.userAgent)) {
+            os = '📚 Chrome OS';
+        }
+
+        osElement.textContent = os;
+    }
+
+    // Atualizar resolução da tela
+    
+    // Atualizar tempo online
+    updateOnlineTime() {
+        const tempoElement = document.getElementById('tempoOnline');
+        const now = Date.now();
+        const diff = now - this.startTime;
+        
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        tempoElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    // Atualizar status de conexão
+    updateConnectionStatus() {
+        const statusElement = document.getElementById('status');
+        const statusItem = document.getElementById('statusItem');
+        
+        this.isOnline = navigator.onLine;
+        
+        if (this.isOnline) {
+            statusElement.textContent = '🟢 Online';
+            statusItem.classList.remove('status-offline');
+            statusItem.classList.add('status-online');
+        } else {
+            statusElement.textContent = '🔴 Offline';
+            statusItem.classList.remove('status-online');
+            statusItem.classList.add('status-offline');
+        }
+    }
+
+    // Iniciar timers
+    startTimers() {
+        // Atualizar tempo online a cada segundo
+        setInterval(() => {
+            this.updateOnlineTime();
+        }, 1000);
+
+        // Verificar status de conexão a cada 5 segundos
+        setInterval(() => {
+            this.updateConnectionStatus();
+        }, 5000);
+
+        // Atualizar resolução quando a janela for redimensionada
+        window.addEventListener('resize', () => {
+          //  this.updateResolution();
+        });
+
+        // Atualizar status inicial
+        this.updateConnectionStatus();
+    }
+
+    // Configurar event listeners
+    setupEventListeners() {
+        // Detectar mudanças de conexão
+        window.addEventListener('online', () => {
+            this.updateConnectionStatus();
+            console.log('🟢 Conexão restaurada');
+        });
+
+        window.addEventListener('offline', () => {
+            this.updateConnectionStatus();
+            console.log('🔴 Conexão perdida');
+        });
+
+        // Detectar mudanças de orientação (mobile)
+        window.addEventListener('orientationchange', () => {
+            setTimeout(() => {
+              //  this.updateResolution();
+            }, 100);
+        });
+    }
+
+    // Obter informações detalhadas do dispositivo
+    getDeviceInfo() {
+        return {
+            userAgent: this.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            cookieEnabled: navigator.cookieEnabled,
+            onLine: navigator.onLine,
+            screenWidth: screen.width,
+            screenHeight: screen.height,
+            viewportWidth: window.innerWidth,
+            viewportHeight: window.innerHeight,
+            colorDepth: screen.colorDepth,
+            pixelDepth: screen.pixelDepth,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            touchSupport: 'ontouchstart' in window,
+            deviceMemory: navigator.deviceMemory || 'N/A',
+            hardwareConcurrency: navigator.hardwareConcurrency || 'N/A'
+        };
+    }
+
+    // Detectar características específicas
+    detectFeatures() {
+        const features = {
+            touchScreen: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+            geolocation: 'geolocation' in navigator,
+            camera: 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices,
+            bluetooth: 'bluetooth' in navigator,
+            serviceWorker: 'serviceWorker' in navigator,
+            webGL: this.hasWebGL(),
+            localStorage: this.hasLocalStorage(),
+            sessionStorage: this.hasSessionStorage(),
+            indexedDB: 'indexedDB' in window,
+            webRTC: this.hasWebRTC()
+        };
+
+        console.log('🔧 Características do dispositivo:', features);
+        return features;
+    }
+
+    // Verificar suporte a WebGL
+    hasWebGL() {
+        try {
+            const canvas = document.createElement('canvas');
+            return !!(window.WebGLRenderingContext && canvas.getContext('webgl'));
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Verificar suporte a localStorage
+    hasLocalStorage() {
+        try {
+            return 'localStorage' in window && window.localStorage !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Verificar suporte a sessionStorage
+    hasSessionStorage() {
+        try {
+            return 'sessionStorage' in window && window.sessionStorage !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    // Verificar suporte a WebRTC
+    hasWebRTC() {
+        return !!(window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection);
+    }
+}
+
+// Função para atualizar informações (chamada pelo botão)
+function atualizarInformacoes() {
+    const button = document.querySelector('.refresh-btn');
+    const deviceInfo = document.querySelector('.device-info');
+    
+    // Adicionar efeito de loading
+    button.classList.add('loading');
+    deviceInfo.style.opacity = '0.7';
+    
+    // Simular carregamento
+    setTimeout(() => {
+        // Recriar o detector para atualizar todas as informações
+        window.deviceDetector = new DeviceDetector();
+        
+        // Remover efeito de loading
+        button.classList.remove('loading');
+        deviceInfo.style.opacity = '1';
+        
+        console.log('🔄 Informações atualizadas!');
+    }, 500);
+}
+
+// Função para obter apenas as informações básicas (para uso em outros projetos)
+function getBasicDeviceInfo() {
+    const detector = new DeviceDetector();
+    const info = detector.getDeviceInfo();
+    
+    return {
+        tempoOnline: formatTime(Date.now() - detector.startTime),
+        status: navigator.onLine ? 'Online' : 'Offline',
+        dispositivo: getDeviceType(),
+       // navegador: getBrowserName(),
+        sistemaOperacional: getOSName(),
+      //  resolucao: `${screen.width}x${screen.height}`
+    };
+}
+
+// Funções auxiliares para uso independente
+function getDeviceType() {
+    const ua = navigator.userAgent;
+    
+    if (/iPhone/i.test(ua)) return 'iPhone';
+    if (/iPad/i.test(ua)) return 'iPad';
+    if (/Android/i.test(ua) && /Mobile/i.test(ua)) return 'Android Phone';
+    if (/Android/i.test(ua) && !/Mobile/i.test(ua)) return 'Android Tablet';
+    if (/Windows Phone/i.test(ua)) return 'Windows Phone';
+    if (/BlackBerry/i.test(ua)) return 'BlackBerry';
+    if (/Windows/i.test(ua)) return 'PC Windows';
+    if (/Macintosh|Mac OS X/i.test(ua)) return 'Mac';
+    if (/Linux/i.test(ua)) return 'PC Linux';
+    
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ? 'Mobile' : 'Desktop';
+}
+
+function getBrowserName() {
+    const ua = navigator.userAgent;
+    
+    if (/Chrome/i.test(ua) && !/Edge|Edg/i.test(ua)) return 'Chrome';
+    if (/Firefox/i.test(ua)) return 'Firefox';
+    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
+    if (/Edge|Edg/i.test(ua)) return 'Edge';
+    if (/Opera|OPR/i.test(ua)) return 'Opera';
+    if (/MSIE|Trident/i.test(ua)) return 'Internet Explorer';
+    
+    return 'Desconhecido';
+}
+
+function getOSName() {
+    const ua = navigator.userAgent;
+    
+    if (/Windows NT 10.0/i.test(ua)) return 'Windows 10/11';
+    if (/Windows/i.test(ua)) return 'Windows';
+    if (/iPhone OS|iOS/i.test(ua)) return 'iOS';
+    if (/Android/i.test(ua)) return 'Android';
+    if (/Mac OS X/i.test(ua)) return 'macOS';
+    if (/Linux/i.test(ua)) return 'Linux';
+    
+    return 'Desconhecido';
+}
+
+function formatTime(milliseconds) {
+    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+    
+    return `${hours}h ${minutes}m ${seconds}s`;
+}
+
+// Inicializar quando a página carregar
+document.addEventListener('DOMContentLoaded', () => {
+    window.deviceDetector = new DeviceDetector();
+    
+    // Detectar características do dispositivo
+    const features = window.deviceDetector.detectFeatures();
+    
+    // Tornar funções disponíveis globalmente
+    window.getBasicDeviceInfo = getBasicDeviceInfo;
+    window.getDeviceType = getDeviceType;
+ //   window.getBrowserName = getBrowserName;
+    window.getOSName = getOSName;
+    
+    
+});
+
+    </script>
+</body>
 </html>

@@ -306,3 +306,15 @@ body {
     inset 0px 35px 30px #000;
   margin-top: 3px;
 }
+
+.nexus-logo{
+    --w: 120px; /* image width */
+  --r: 1;     /* image ratio */
+  --c: 113px; /* control the size of the decoration */
+  box-sizing: border-box;
+  aspect-ratio: var(--r);
+  object-fit: cover;
+  --_g:calc(100% - var(--w)/2)/calc(var(--w)*(1 + 1/var(--r)) - var(--c));
+  background: repeating-conic-gradient(from 45deg,#0000 0 25%,#0005 0 50%) var(--_g);
+  -webkit-mask: repeating-conic-gradient(from 45deg,#000 0 25%,#0005 0 50%) var(--_g);
+}

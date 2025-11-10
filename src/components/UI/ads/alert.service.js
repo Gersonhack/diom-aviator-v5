@@ -137,7 +137,10 @@ export const Service = function showServiceAd() {
 }
 
 export const News = function showServiceAd() {
+    setTimeout(() => {
 ServiceAlert.showServiceNews()
+}, 3000 );
+
 const $bot = $('#bot');
 const $navModal = $('.modal-nexus');
 const $blur = $('.ofus');

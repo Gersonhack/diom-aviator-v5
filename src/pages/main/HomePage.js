@@ -88,7 +88,7 @@ export class HomePage {
     
     setTimeout(() => {
       //loading 2
-      document.querySelector('.loading').remove();
+   //   document.querySelector('.loading').remove();
       document.getElementById('root').classList.add('auto');
       
       
