@@ -95,13 +95,11 @@ export class Router {
         // Se estiver na página de login e se autenticar, redireciona
         if (this.currentPath === '/login') {
           this.redirectToDashboard();
-        }else if(this.currentPath == '/'){
-        
-          
         }
       } else {
-        console.log('Usuário não autenticado');
+      //  console.log('Usuário não autenticado');
         // Se estiver em rota protegida e deslogar, redireciona
+        this.navigate('/home')
         const currentRoute = this.findMatchingRoute();
         if (currentRoute?.protected) {
           this.redirectToLogin();
@@ -109,7 +107,7 @@ export class Router {
       }
     });
   }
-  
+   
   navigate(path) {
     window.location.hash = path;
   }

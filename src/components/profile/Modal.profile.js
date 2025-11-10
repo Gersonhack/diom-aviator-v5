@@ -162,7 +162,7 @@ export class Profile{
           try {
             await auth.signOut();
             console.log('Logout ✅')
-            window.location.href = "#/"
+            window.location.href = "#/home"
           } catch (error) {
             console.error('Erro no logout:', error);
           }
