@@ -12,7 +12,7 @@ export class LoginPage {
 <div class="contentLogin">
     <div class="login-container">
         <!-- Logo -->
-        <div class="logo-section">
+        <div class="logo-section-login">
             <img class="logo-img" src="/src/assents/imgs/Logo.jpg" alt="Diom Aviator Logo">
             <h1 class="logo-text">${Mtx.App.Config.name}</h1>
         </div>

@@ -10,7 +10,7 @@ export class NavbarTop {
 <div class="flex items-center justify-center space-x-2">
 
   <div class="flex gap-2  items-center space-x-4">
-  <img class="w-8 h-8 shadow-2xl rounded-full mr-4" src="/src/assents/imgs/logo.jpg" alt="">
+  <img class="w-8 h-8 shadow-2xl rounded-full mr-4" src="/public/assents/images/android-chrome-512x512.png" alt="">
   <div class="pl-8">
   <span class="text-white font-bold text-sm">
     ${Mtx.App.Config.name}

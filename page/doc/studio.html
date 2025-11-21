@@ -3,549 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detector de Dispositivo</title>
+    <title>Diom av</title>
+    <link rel="stylesheet" href="style.css">
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+/* Reset e Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        .device-info {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            color: white;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    background: #ffffff;
+    color: #000000;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
 
-        .device-info h2 {
-            margin-bottom: 25px;
-            color: #ffffff;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
+/* Status Bar */
+.status-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    background: transparent;
+}
 
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border-left: 4px solid #4CAF50;
-        }
+.status-left .time {
+    font-size: 17px;
+    font-weight: 600;
+    color: #000000;
+}
 
-        .info-label {
-            font-weight: 500;
-            color: #e0e0e0;
-        }
+.status-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
 
-        .info-value {
-            font-weight: 600;
-            color: #ffffff;
-            font-size: 1.1rem;
-        }
+.signal-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+}
 
-        .status-online {
-            color: #4CAF50;
-            border-left-color: #4CAF50;
-        }
+.signal-bars .bar {
+    width: 3px;
+    background: #000000;
+    border-radius: 1px;
+}
 
-        .status-offline {
-            color: #f44336;
-            border-left-color: #f44336;
-        }
+.signal-bars .bar:nth-child(1) { height: 4px; }
+.signal-bars .bar:nth-child(2) { height: 6px; }
+.signal-bars .bar:nth-child(3) { height: 8px; }
+.signal-bars .bar:nth-child(4) { height: 10px; }
 
-        .device-icon {
-            font-size: 1.2rem;
-            margin-right: 8px;
-        }
+.wifi-icon svg {
+    fill: #000000;
+}
 
-        .refresh-btn {
-            background: linear-gradient(45deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
+.battery {
+    width: 24px;
+    height: 12px;
+    border: 1px solid #000000;
+    border-radius: 2px;
+    position: relative;
+    background: transparent;
+}
 
-        .refresh-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-        }
+.battery::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 3px;
+    width: 2px;
+    height: 6px;
+    background: #000000;
+    border-radius: 0 1px 1px 0;
+}
 
-        .refresh-btn:active {
-            transform: translateY(0);
-        }
+.battery-level {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    bottom: 1px;
+    width: 80%;
+    background: #000000;
+    border-radius: 1px;
+}
 
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
+/* Main Container */
+.main-container {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 44px 0 34px 0;
+}
 
-        @media (max-width: 480px) {
-            .device-info {
-                padding: 20px;
-                margin: 10px;
-            }
-            
-            .info-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 5px;
-            }
-        }
+/* Background Gradient */
+.gradient-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+z-index: 11;
+    background: radial-gradient(
+        ellipse 80% 50% at 50% 0%, #4F46E5D1 0%,#8B5CF65E 40%,
+        transparent 70%
+    );
+    
+}
+
+/* Content */
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 28px;
+    z-index: 2;
+    position: relative;
+    text-align: center;
+}
+
+/* Logo Section */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 80px;
+    position: absolute;
+    top:0;
+    
+}
+
+.logo-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    letter-spacing: -0.5px;
+}
+
+/* Text Section */
+.text-section {
+    margin-bottom: 80px;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    color: #000000;
+    letter-spacing: -1px;
+}
+
+.main-title .highlight {
+    color: #8B5CF6;
+    border-bottom:2px solid #8B5CF6;
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #666666;
+    letter-spacing: 0.2px;
+}
+
+/* Page Indicators */
+.page-indicators {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 40px;
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #dddddd;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: #8B5CF6;
+    transform: scale(1.2);
+}
+
+/* Bottom Actions */
+.bottom-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 32px;
+    z-index: 2;
+    position: relative;
+}
+
+.btn-primary {
+    width: 100%;
+    height: 56px;
+    background: #8B5CF6;
+    border: none;
+    border-radius: 28px;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 85, 255, 0.3);
+}
+
+.btn-primary:hover {
+    background: #8B5CF6BF;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 85, 255, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 15px rgba(0, 85, 255, 0.3);
+}
+
+.btn-secondary {
+    width: 100%;
+    height: 56px;
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    color: #666666;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 28px;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    color: #000000;
+    border-color: #cccccc;
+    background: #f8f8f8;
+    transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+    color: #666666;
+    background: #f0f0f0;
+}
+
+/* Home Indicator */
+.home-indicator {
+    position: fixed;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 134px;
+    height: 5px;
+    background: #000000;
+    border-radius: 3px;
+    opacity: 0.3;
+}
+
+/* Responsive Design */
+@media (max-width: 375px) {
+    .content {
+        padding: 0 24px;
+    }
+    
+    .main-title {
+        font-size: 32px;
+    }
+    
+    .subtitle {
+        font-size: 15px;
+    }
+    
+    .bottom-actions {
+        padding: 0 24px;
+    }
+}
+
+@media (min-width: 414px) {
+    .main-title {
+        font-size: 40px;
+    }
+    
+    .subtitle {
+        font-size: 17px;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo-section {
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.text-section {
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+}
+
+.page-indicators {
+    animation: fadeInUp 0.8s ease-out 0.6s both;
+}
+
+.bottom-actions {
+    animation: fadeInUp 0.8s ease-out 0.8s both;
+}
+
+/* Micro-interactions */
+.logo-icon {
+    transition: transform 0.3s ease;
+}
+
+.logo-section:hover .logo-icon {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.indicator {
+    cursor: pointer;
+}
+
+.indicator:hover {
+    background: #aaaaaa;
+    transform: scale(1.1);
+}
+
+.indicator.active:hover {
+    background: #8B5CF6BF;
+    transform: scale(1.3);
+}
+
+/* Focus States */
+.btn-primary:focus,
+.btn-secondary:focus {
+    outline: 2px solid #8B5CF6;
+    outline-offset: 2px;
+}
+
+
+
+
+
+/* Light Mode Adjustments */
+@media (prefers-color-scheme: light) {
+    body {
+        background: #ffffff;
+        color: #000000;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .subtitle {
+        color: #333333;
+    }
+    
+    .btn-secondary {
+        color: #333333;
+        border-color: #000000;
+    }
+    
+    .indicator {
+        background: #666666;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+.home-logo{
+    height:32px;
+    width:32px;
+    padding: 2px;
+}
+.home-diom{
+    height:100px;
+    width: 100px;
+    border-radius: 35px;
+}
     </style>
+        <link rel="stylesheet/less" href="/src/assents/css/pages/HomePage.less" type="text/css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/4.4.1/less.min.js" integrity="sha512-gf1wV+Jb47V1G6/zERuz4sxWwHog05KtsHxsT7VVC3CD/BXSgZgqB9wnELfnvn5HARCn5RQ+7org1ZZa1IQPTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <div class="device-info">
-        <h2>📱 Informações do Sistema</h2>
-        
-        <div class="info-item">
-            <span class="info-label">Tempo Online:</span>
-            <span class="info-value" id="tempoOnline">0h 0m 0s</span>
-        </div>
-        
-        <div class="info-item" id="statusItem">
-            <span class="info-label">Status:</span>
-            <span class="info-value" id="status">Online</span>
-        </div>
-        
-        <div class="info-item">
-            <span class="info-label">Dispositivo:</span>
-            <span class="info-value" id="dispositivo">
-                <span class="device-icon" id="deviceIcon">💻</span>
-                <span id="deviceName">Carregando...</span>
-            </span>
-        </div>
-        
+    <!-- Status Bar (iOS Style) -->
 
-        <div class="info-item">
-            <span class="info-label">Sistema Operacional:</span>
-            <span class="info-value" id="sistemaOperacional">Verificando...</span>
+
+    <!-- Main Content -->
+    <div class="main-container">
+           <div class="logo-section">
+       <div class="logo-icon">
+           <img src="/public/assents/images/android-chrome-512x512.png" class="home-logo" alt="">
+       </div>
+       <span class="logo-text">DIOM AVIATOR</span>
+   </div>
+        <!-- Background Gradient -->
+        <div class="gradient-bg"></div>
+        
+        <!-- Content -->
+        <div class="content">
+            <!-- Logo Section -->
+           
+              
+            <img src="/src/assents/imgs/Logo.jpg" class="home-diom" alt="">
+
+            <!-- Main Text Section -->
+            <div class="text-section">
+                <h1 class="main-title">
+                    Junte-se à nossa comunidade exclusiva e<br>
+                     descubra um mundo de <span class="highlight">possibilidades. </span>
+                </h1>
+                <p class="subtitle">
+                Faça login ou crie sua conta <br>
+                para começar sua jornada conosco
+                </p>
+            </div>
+
+            <!-- Page Indicators -->
+            <div class="page-indicators">
+
+            </div>
         </div>
 
-        <button class="refresh-btn" onclick="atualizarInformacoes()">
-            🔄 Atualizar Informações
-        </button>
+        <!-- Bottom Actions -->
+        <div class="bottom-actions">
+            <button class="btn-primary">${Mtx.App.Home.btn_login}</button>
+            <button class="btn-secondary">${Mtx.App.Home.btn_signup}</button>
+        </div>
+
+        <!-- Home Indicator (iOS Style) -->
+            <!-- Footer com redes sociais -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="social-text">Conecte-se conosco nas redes sociais</p>
+            <div class="social-icons">
+                <!-- WhatsApp -->
+                <a href="${Mtx.App.Link.whatsapp}" class="social-icon whatsapp">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488" />
+                    </svg>
+                </a>
+                
+                <!-- Instagram -->
+                <a href="${Mtx.App.Link.instagram}" class="social-icon instagram">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                    </svg>
+                </a>
+                
+                <!-- YouTube -->
+                <a href="${Mtx.App.Link.youtube}" class="social-icon youtube">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                </a>
+                
+                <!-- Telegram -->
+                <a href="${Mtx.App.Link.telegram}" class="social-icon telegram">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
     </div>
-
-    <script src="device-detector.js"></script>
-    <script>
-        // Device Detector - Sistema de Detecção de Dispositivos
-class DeviceDetector {
-    constructor() {
-        this.startTime = Date.now();
-        this.isOnline = navigator.onLine;
-        this.userAgent = navigator.userAgent;
-        
-        this.init();
-    }
-
-    init() {
-        this.detectDevice();
-  //      this.detectBrowser();
-        this.detectOS();
-     //   this.updateResolution();
-        this.startTimers();
-        this.setupEventListeners();
-        
-        console.log('🔍 Device Detector iniciado!');
-        console.log('User Agent:', this.userAgent);
-    }
-
-    // Detectar tipo de dispositivo
-    detectDevice() {
-        const deviceElement = document.getElementById('deviceName');
-        const iconElement = document.getElementById('deviceIcon');
-        
-        let deviceType = 'Desconhecido';
-        let icon = '❓';
-
-        // Detectar iPhone
-        if (/iPhone/i.test(this.userAgent)) {
-            deviceType = 'iPhone';
-            icon = '📱';
-        }
-        // Detectar iPad
-        else if (/iPad/i.test(this.userAgent)) {
-            deviceType = 'iPad';
-            icon = '📱';
-        }
-        // Detectar Android Phone
-        else if (/Android/i.test(this.userAgent) && /Mobile/i.test(this.userAgent)) {
-            deviceType = 'Android Phone';
-            icon = '📱';
-        }
-        // Detectar Android Tablet
-        else if (/Android/i.test(this.userAgent) && !/Mobile/i.test(this.userAgent)) {
-            deviceType = 'Android Tablet';
-            icon = '📱';
-        }
-        // Detectar Windows Phone
-        else if (/Windows Phone/i.test(this.userAgent)) {
-            deviceType = 'Windows Phone';
-            icon = '📱';
-        }
-        // Detectar BlackBerry
-        else if (/BlackBerry/i.test(this.userAgent)) {
-            deviceType = 'BlackBerry';
-            icon = '📱';
-        }
-        // Detectar Desktop/PC
-        else if (/Windows/i.test(this.userAgent)) {
-            deviceType = 'PC Windows';
-            icon = '💻';
-        }
-        // Detectar Mac
-        else if (/Macintosh|Mac OS X/i.test(this.userAgent)) {
-            deviceType = 'Mac';
-            icon = '🖥️';
-        }
-        // Detectar Linux
-        else if (/Linux/i.test(this.userAgent)) {
-            deviceType = 'PC Linux';
-            icon = '💻';
-        }
-        // Detectar Smart TV
-        else if (/Smart-TV|SmartTV|GoogleTV|AppleTV/i.test(this.userAgent)) {
-            deviceType = 'Smart TV';
-            icon = '📺';
-        }
-        // Detectar Game Console
-        else if (/PlayStation|Xbox|Nintendo/i.test(this.userAgent)) {
-            deviceType = 'Game Console';
-            icon = '🎮';
-        }
-
-        // Verificação adicional para dispositivos móveis
-        if (this.isMobileDevice()) {
-            if (deviceType === 'Desconhecido') {
-                deviceType = 'Dispositivo Móvel';
-                icon = '📱';
-            }
-        } else if (deviceType === 'Desconhecido') {
-            deviceType = 'Desktop';
-            icon = '💻';
-        }
-
-        deviceElement.textContent = deviceType;
-        iconElement.textContent = icon;
-    }
-
-    // Verificar se é dispositivo móvel
-    isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(this.userAgent) ||
-               (window.innerWidth <= 768 && 'ontouchstart' in window);
-    }
-
-    // Detectar navegador
-    
-
-    // Detectar sistema operacional
-    detectOS() {
-        const osElement = document.getElementById('sistemaOperacional');
-        let os = 'Desconhecido';
-
-        if (/Windows NT 10.0/i.test(this.userAgent)) {
-            os = '🪟 Windows 10/11';
-        } else if (/Windows NT 6.3/i.test(this.userAgent)) {
-            os = '🪟 Windows 8.1';
-        } else if (/Windows NT 6.2/i.test(this.userAgent)) {
-            os = '🪟 Windows 8';
-        } else if (/Windows NT 6.1/i.test(this.userAgent)) {
-            os = '🪟 Windows 7';
-        } else if (/Windows/i.test(this.userAgent)) {
-            os = '🪟 Windows';
-        } else if (/iPhone OS|iOS/i.test(this.userAgent)) {
-            const version = this.userAgent.match(/OS (\d+_\d+)/);
-            os = version ? `📱 iOS ${version[1].replace('_', '.')}` : '📱 iOS';
-        } else if (/Android/i.test(this.userAgent)) {
-            const version = this.userAgent.match(/Android (\d+\.?\d*)/);
-            os = version ? `🤖 Android ${version[1]}` : '🤖 Android';
-        } else if (/Mac OS X/i.test(this.userAgent)) {
-            const version = this.userAgent.match(/Mac OS X (\d+[._]\d+)/);
-            os = version ? `🍎 macOS ${version[1].replace('_', '.')}` : '🍎 macOS';
-        } else if (/Linux/i.test(this.userAgent)) {
-            os = '🐧 Linux';
-        } else if (/CrOS/i.test(this.userAgent)) {
-            os = '📚 Chrome OS';
-        }
-
-        osElement.textContent = os;
-    }
-
-    // Atualizar resolução da tela
-    
-    // Atualizar tempo online
-    updateOnlineTime() {
-        const tempoElement = document.getElementById('tempoOnline');
-        const now = Date.now();
-        const diff = now - this.startTime;
-        
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-        
-        tempoElement.textContent = `${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    // Atualizar status de conexão
-    updateConnectionStatus() {
-        const statusElement = document.getElementById('status');
-        const statusItem = document.getElementById('statusItem');
-        
-        this.isOnline = navigator.onLine;
-        
-        if (this.isOnline) {
-            statusElement.textContent = '🟢 Online';
-            statusItem.classList.remove('status-offline');
-            statusItem.classList.add('status-online');
-        } else {
-            statusElement.textContent = '🔴 Offline';
-            statusItem.classList.remove('status-online');
-            statusItem.classList.add('status-offline');
-        }
-    }
-
-    // Iniciar timers
-    startTimers() {
-        // Atualizar tempo online a cada segundo
-        setInterval(() => {
-            this.updateOnlineTime();
-        }, 1000);
-
-        // Verificar status de conexão a cada 5 segundos
-        setInterval(() => {
-            this.updateConnectionStatus();
-        }, 5000);
-
-        // Atualizar resolução quando a janela for redimensionada
-        window.addEventListener('resize', () => {
-          //  this.updateResolution();
-        });
-
-        // Atualizar status inicial
-        this.updateConnectionStatus();
-    }
-
-    // Configurar event listeners
-    setupEventListeners() {
-        // Detectar mudanças de conexão
-        window.addEventListener('online', () => {
-            this.updateConnectionStatus();
-            console.log('🟢 Conexão restaurada');
-        });
-
-        window.addEventListener('offline', () => {
-            this.updateConnectionStatus();
-            console.log('🔴 Conexão perdida');
-        });
-
-        // Detectar mudanças de orientação (mobile)
-        window.addEventListener('orientationchange', () => {
-            setTimeout(() => {
-              //  this.updateResolution();
-            }, 100);
-        });
-    }
-
-    // Obter informações detalhadas do dispositivo
-    getDeviceInfo() {
-        return {
-            userAgent: this.userAgent,
-            platform: navigator.platform,
-            language: navigator.language,
-            cookieEnabled: navigator.cookieEnabled,
-            onLine: navigator.onLine,
-            screenWidth: screen.width,
-            screenHeight: screen.height,
-            viewportWidth: window.innerWidth,
-            viewportHeight: window.innerHeight,
-            colorDepth: screen.colorDepth,
-            pixelDepth: screen.pixelDepth,
-            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-            touchSupport: 'ontouchstart' in window,
-            deviceMemory: navigator.deviceMemory || 'N/A',
-            hardwareConcurrency: navigator.hardwareConcurrency || 'N/A'
-        };
-    }
-
-    // Detectar características específicas
-    detectFeatures() {
-        const features = {
-            touchScreen: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-            geolocation: 'geolocation' in navigator,
-            camera: 'mediaDevices' in navigator && 'getUserMedia' in navigator.mediaDevices,
-            bluetooth: 'bluetooth' in navigator,
-            serviceWorker: 'serviceWorker' in navigator,
-            webGL: this.hasWebGL(),
-            localStorage: this.hasLocalStorage(),
-            sessionStorage: this.hasSessionStorage(),
-            indexedDB: 'indexedDB' in window,
-            webRTC: this.hasWebRTC()
-        };
-
-        console.log('🔧 Características do dispositivo:', features);
-        return features;
-    }
-
-    // Verificar suporte a WebGL
-    hasWebGL() {
-        try {
-            const canvas = document.createElement('canvas');
-            return !!(window.WebGLRenderingContext && canvas.getContext('webgl'));
-        } catch (e) {
-            return false;
-        }
-    }
-
-    // Verificar suporte a localStorage
-    hasLocalStorage() {
-        try {
-            return 'localStorage' in window && window.localStorage !== null;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    // Verificar suporte a sessionStorage
-    hasSessionStorage() {
-        try {
-            return 'sessionStorage' in window && window.sessionStorage !== null;
-        } catch (e) {
-            return false;
-        }
-    }
-
-    // Verificar suporte a WebRTC
-    hasWebRTC() {
-        return !!(window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection);
-    }
-}
-
-// Função para atualizar informações (chamada pelo botão)
-function atualizarInformacoes() {
-    const button = document.querySelector('.refresh-btn');
-    const deviceInfo = document.querySelector('.device-info');
-    
-    // Adicionar efeito de loading
-    button.classList.add('loading');
-    deviceInfo.style.opacity = '0.7';
-    
-    // Simular carregamento
-    setTimeout(() => {
-        // Recriar o detector para atualizar todas as informações
-        window.deviceDetector = new DeviceDetector();
-        
-        // Remover efeito de loading
-        button.classList.remove('loading');
-        deviceInfo.style.opacity = '1';
-        
-        console.log('🔄 Informações atualizadas!');
-    }, 500);
-}
-
-// Função para obter apenas as informações básicas (para uso em outros projetos)
-function getBasicDeviceInfo() {
-    const detector = new DeviceDetector();
-    const info = detector.getDeviceInfo();
-    
-    return {
-        tempoOnline: formatTime(Date.now() - detector.startTime),
-        status: navigator.onLine ? 'Online' : 'Offline',
-        dispositivo: getDeviceType(),
-       // navegador: getBrowserName(),
-        sistemaOperacional: getOSName(),
-      //  resolucao: `${screen.width}x${screen.height}`
-    };
-}
-
-// Funções auxiliares para uso independente
-function getDeviceType() {
-    const ua = navigator.userAgent;
-    
-    if (/iPhone/i.test(ua)) return 'iPhone';
-    if (/iPad/i.test(ua)) return 'iPad';
-    if (/Android/i.test(ua) && /Mobile/i.test(ua)) return 'Android Phone';
-    if (/Android/i.test(ua) && !/Mobile/i.test(ua)) return 'Android Tablet';
-    if (/Windows Phone/i.test(ua)) return 'Windows Phone';
-    if (/BlackBerry/i.test(ua)) return 'BlackBerry';
-    if (/Windows/i.test(ua)) return 'PC Windows';
-    if (/Macintosh|Mac OS X/i.test(ua)) return 'Mac';
-    if (/Linux/i.test(ua)) return 'PC Linux';
-    
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ? 'Mobile' : 'Desktop';
-}
-
-function getBrowserName() {
-    const ua = navigator.userAgent;
-    
-    if (/Chrome/i.test(ua) && !/Edge|Edg/i.test(ua)) return 'Chrome';
-    if (/Firefox/i.test(ua)) return 'Firefox';
-    if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) return 'Safari';
-    if (/Edge|Edg/i.test(ua)) return 'Edge';
-    if (/Opera|OPR/i.test(ua)) return 'Opera';
-    if (/MSIE|Trident/i.test(ua)) return 'Internet Explorer';
-    
-    return 'Desconhecido';
-}
-
-function getOSName() {
-    const ua = navigator.userAgent;
-    
-    if (/Windows NT 10.0/i.test(ua)) return 'Windows 10/11';
-    if (/Windows/i.test(ua)) return 'Windows';
-    if (/iPhone OS|iOS/i.test(ua)) return 'iOS';
-    if (/Android/i.test(ua)) return 'Android';
-    if (/Mac OS X/i.test(ua)) return 'macOS';
-    if (/Linux/i.test(ua)) return 'Linux';
-    
-    return 'Desconhecido';
-}
-
-function formatTime(milliseconds) {
-    const hours = Math.floor(milliseconds / (1000 * 60 * 60));
-    const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
-    
-    return `${hours}h ${minutes}m ${seconds}s`;
-}
-
-// Inicializar quando a página carregar
-document.addEventListener('DOMContentLoaded', () => {
-    window.deviceDetector = new DeviceDetector();
-    
-    // Detectar características do dispositivo
-    const features = window.deviceDetector.detectFeatures();
-    
-    // Tornar funções disponíveis globalmente
-    window.getBasicDeviceInfo = getBasicDeviceInfo;
-    window.getDeviceType = getDeviceType;
- //   window.getBrowserName = getBrowserName;
-    window.getOSName = getOSName;
-    
-    
-});
-
-    </script>
 </body>
 </html>

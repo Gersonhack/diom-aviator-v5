@@ -20,8 +20,8 @@ justify-content: center;
 align-items: center;
 pointer-events: all;
 
-  
-}
+    }
+
 
 .box-conection{
   backdrop-filter: blur(4px);
