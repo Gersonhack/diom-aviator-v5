@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Audio - Diom Bot</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    
+    <style>
+        /* Tema Dark */
+        :root {
+            --bg-primary: #0a0e27;
+            --bg-secondary: #1a1f3a;
+            --bg-tertiary: #2a3050;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b9c1;
+            --accent-blue: #135bec;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* ============================================================ */
+        /* FORMULÁRIO DE LOGIN */
+        /* ============================================================ */
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid var(--bg-tertiary);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: var(--bg-primary);
+            box-shadow: 0 0 0 3px rgba(19, 91, 236, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-login:hover:not(:disabled) {
+            background: #0d47a1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 91, 236, 0.3);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .login-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--accent-red);
+            color: #fca5a5;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ============================================================ */
+        /* LIVE AUDIO CONTAINER */
+        /* ============================================================ */
+
+        .live-audio-container {
+            max-width: 500px;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            display: none; /* Oculto por padrão */
+        }
+
+        .live-audio-container.show {
+            display: flex;
+        }
+
+        /* Header */
+        .live-header {
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-bottom: 1px solid var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .live-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .live-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-logout {
+            padding: 6px 12px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--accent-red);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        /* Conteúdo Principal */
+        .live-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        /* Seção do Orador */
+        .speaker-section {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .speaker-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 32px;
+        }
+
+        .speaker-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .speaker-status {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Seção de Ouvintes */
+        .listeners-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .listeners-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .listener-item {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--bg-tertiary);
+            transition: all 0.3s ease;
+        }
+
+        .listener-item:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+        }
+
+        .listener-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .listener-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .listener-details {
+            flex: 1;
+        }
+
+        .listener-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .listener-status {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Estado Offline */
+        .offline-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            gap: 16px;
+        }
+
+        .offline-icon {
+            font-size: 64px;
+            color: var(--text-secondary);
+        }
+
+        .offline-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Seção de Solicitações */
+        .requests-section {
+            margin-bottom: 20px;
+        }
+
+        .request-item {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid var(--accent-blue);
+            transition: all 0.3s ease;
+        }
+
+        .request-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .request-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .request-details {
+            flex: 1;
+        }
+
+        .request-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .request-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-approve {
+            padding: 6px 12px;
+            background: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-approve:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        .btn-deny {
+            padding: 6px 12px;
+            background: var(--accent-red);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-deny:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        /* Footer com Controles */
+        .live-footer {
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-top: 1px solid var(--bg-tertiary);
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #0d47a1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(19, 91, 236, 0.3);
+        }
+
+        .btn-primary.danger {
+            background: var(--accent-red);
+        }
+
+        .btn-primary.danger:hover {
+            background: #dc2626;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-secondary {
+            padding: 12px 24px;
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .badge.red {
+            background: var(--accent-red);
+        }
+
+        /* Scrollbar Customizado */
+        .listeners-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .listeners-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .listeners-list::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+        }
+
+        .listeners-list::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-blue);
+        }
+
+        /* Animação de Entrada */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .listener-item,
+        .request-item {
+            animation: slideIn 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================ -->
+    <!-- FORMULÁRIO DE LOGIN -->
+    <!-- ============================================================ -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <div class="login-header">
+                <span class="login-icon">🎤</span>
+                <h1 class="login-title">Live Audio</h1>
+                <p class="login-subtitle">Faça login para começar</p>
+            </div>
+
+            <div class="login-error" id="loginError"></div>
+
+            <form id="loginForm" onsubmit="return false;">
+                <div class="form-group">
+                    <label class="form-label" for="loginEmail">Email</label>
+                    <input 
+                        type="email" 
+                        id="loginEmail" 
+                        class="form-input" 
+                        placeholder="seu@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">Senha</label>
+                    <input 
+                        type="password" 
+                        id="loginPassword" 
+                        class="form-input" 
+                        placeholder="••••••••"
+                        required
+                    >
+                </div>
+
+                <div class="form-checkbox">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Manter-me conectado</label>
+                </div>
+
+                <button type="button" class="btn-login" id="btnLogin">
+                    <span>Entrar</span>
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>Credenciais de teste:</p>
+                <p><strong>Admin:</strong> root@gmail.com / admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- LIVE AUDIO -->
+    <!-- ============================================================ -->
+    <div class="live-audio-container" id="liveAudioContainer">
+        <!-- Header -->
+        <div class="live-header" id="liveHeader">
+            <div class="live-title">
+                <span class="live-indicator" id="liveIndicator" style="display: none;"></span>
+                <span id="headerTitle">Live Audio</span>
+            </div>
+            <div class="header-actions">
+                <div id="userRole" style="font-size: 12px; color: var(--text-secondary);"></div>
+                <button class="btn-logout" id="btnLogout">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </div>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="live-content" id="liveContent">
+            <!-- Estado Offline (Padrão) -->
+            <div class="offline-state" id="offlineState">
+                <div class="offline-icon">
+                    <i class="fas fa-microphone-slash"></i>
+                </div>
+                <div class="offline-text">Nenhuma transmissão ativa</div>
+                <div style="font-size: 12px; color: var(--text-secondary);">Aguardando o admin iniciar uma live</div>
+            </div>
+
+            <!-- Seção do Orador (Oculta por padrão) -->
+            <div id="speakerSection" style="display: none;">
+                <div class="speaker-section">
+                    <div class="speaker-avatar" id="speakerAvatar">🎤</div>
+                    <div class="speaker-name" id="speakerName">Admin</div>
+                    <div class="speaker-status" id="speakerStatus">Transmitindo ao vivo...</div>
+                </div>
+
+                <!-- Ouvintes -->
+                <div class="listeners-section">
+                    <div class="section-title">
+                        Ouvintes
+                        <span class="badge" id="listenersCount">0</span>
+                    </div>
+                    <div class="listeners-list" id="listenersList">
+                        <div style="text-align: center; color: var(--text-secondary); padding: 20px;">
+                            Nenhum ouvinte conectado
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solicitações de Fala (Apenas para Admin) -->
+                <div class="requests-section" id="requestsSection" style="display: none;">
+                    <div class="section-title">
+                        Solicitações de Fala
+                        <span class="badge red" id="requestsCount">0</span>
+                    </div>
+                    <div id="requestsList">
+                        <div style="text-align: center; color: var(--text-secondary); padding: 20px;">
+                            Nenhuma solicitação
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer com Controles -->
+        <div class="live-footer" id="liveFooter">
+            <!-- Controles Admin -->
+            <div id="adminControls" style="display: none; width: 100%; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-primary" id="btnStartLive">
+                    <i class="fas fa-play"></i> Iniciar Live
+                </button>
+                <button class="btn-primary danger" id="btnStopLive" style="display: none;">
+                    <i class="fas fa-stop"></i> Parar Live
+                </button>
+            </div>
+
+            <!-- Controles Usuário -->
+            <div id="userControls" style="display: none; width: 100%; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-secondary" id="btnRequestSpeak">
+                    <i class="fas fa-hand-paper"></i> Solicitar Falar
+                </button>
+                <button class="btn-primary" id="btnSpeak" style="display: none;">
+                    <i class="fas fa-microphone"></i> Falar
+                </button>
+                <button class="btn-primary danger" id="btnStopSpeak" style="display: none;">
+                    <i class="fas fa-microphone-slash"></i> Parar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/api.js"></script>
+</body>
+</html>
