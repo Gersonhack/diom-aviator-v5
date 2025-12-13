@@ -74,12 +74,12 @@ function mostrarTutorialPrimeiraVez() {
         title: '🎉 Bem-vindo aos Eventos de Sorteio!',
         html: `
             <p style="font-size:13px;>Para participar dos nossos sorteios, siga estes passos simples:</p>
-            <ol style="text-align: left; margin: 20px 0;">
-                <li font-size:13px;>Escolha um evento disponível</li>
-                <li font-size:13px;>Leia os requisitos cuidadosamente</li>
-                <li font-size:13px;>Crie sua conta (se necessário)</li>
-                <li font-size:13px;>Clique em "Participar do Sorteio"</li>
-                <li font-size:13px;>Envie o comprovante solicitado</li>
+            <ol style=" margin: 20px 0;">
+                <l>Escolha um evento disponível</li>
+                <li>Leia os requisitos cuidadosamente</li>
+                <li>Crie sua conta (se necessário)</li>
+                <li>Clique em "Participar do Sorteio"</li>
+                <li>Envie o comprovante solicitado</li>
             </ol>
             <p>Precisa de mais detalhes? Clique no botão "Como Participar" no cabeçalho.</p>
         `,
