@@ -759,3 +759,29 @@ body {
         font-size: var(--font-size-base);
     }
 }
+/* Estilos para ícones de cassino */
+.casino-icon {
+    color: #ff6b6b; /* Vermelho cassino */
+    margin-right: 8px;
+}
+
+.casino-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    border: none;
+}
+
+.casino-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    background-color: #ff6b6b;
+    color: white;
+    border-radius: 20px;
+    font-size: 12px;
+    margin: 0 4px;
+}
+
+.casino-tag i {
+    margin-right: 4px;
+}
