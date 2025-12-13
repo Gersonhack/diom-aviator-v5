@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos de Sorteio</title>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="public.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <!-- ============================================================ -->
+    <!-- HEADER -->
+    <!-- ============================================================ -->
+    <header class="public-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">
+                    <i class="fas fa-gift"></i> Eventos de Sorteio
+                </h1>
+                <div class="header-actions">
+                    <input 
+                        type="text" 
+                        id="searchEventos" 
+                        class="search-input" 
+                        placeholder="Buscar eventos..."
+                    >
+                    <button class="help-btn" onclick="abrirTutorial()">
+                        <i class="fas fa-question-circle"></i> Como Participar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- FILTROS -->
+    <!-- ============================================================ -->
+    <div class="filters-section">
+        <div class="container">
+            <div class="filters">
+                <button class="filter-btn active" data-status="todos">
+                    <i class="fas fa-th"></i> Todos
+                </button>
+                <button class="filter-btn" data-status="ativo">
+                    <i class="fas fa-play-circle"></i> Ativos
+                </button>
+                <button class="filter-btn" data-status="encerrado">
+                    <i class="fas fa-check-circle"></i> Encerrados
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- CONTEÚDO PRINCIPAL -->
+    <!-- ============================================================ -->
+    <main class="public-main">
+        <div class="container">
+            <!-- Eventos -->
+            <div id="eventosList" class="eventos-grid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <span>Carregando eventos...</span>
+                </div>
+            </div>
+
+            <!-- Sem eventos -->
+            <div id="noEventos" class="no-eventos hidden">
+                <i class="fas fa-inbox"></i>
+                <h2>Nenhum evento encontrado</h2>
+                <p>Volte mais tarde para novos eventos!</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- ============================================================ -->
+    <!-- MODAL - TUTORIAL COMO PARTICIPAR -->
+    <!-- ============================================================ -->
+    <div id="modalTutorial" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="fecharTutorial()">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="evento-details">
+                <h2><i class="fas fa-graduation-cap"></i> Como Participar dos Sorteios</h2>
+                <p style="margin-bottom: var(--spacing-xl); color: var(--color-gray-600);">
+                    Siga estes passos simples para participar dos nossos eventos de sorteio:
+                </p>
+                
+                <div class="tutorial-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-search step-icon"></i> Escolha um Evento</h3>
+                            <p>Navegue pela lista de eventos disponíveis e clique em "Ver Detalhes" para saber mais sobre as regras e premiações.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-list-check step-icon"></i> Leia os Requisitos</h3>
+                            <p>No modal de detalhes, leia atentamente todos os requisitos para participação. É importante cumpri-los todos.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-user-plus step-icon"></i> Crie sua Conta</h3>
+                            <p>Se ainda não tem conta na plataforma, clique em "Criar conta" para se registrar. É rápido e gratuito.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-check-to-slot step-icon"></i> Participe do Evento</h3>
+                            <p>Após criar sua conta (ou se já tiver uma), clique em "Participar do Sorteio" para enviar sua inscrição.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-file-upload step-icon"></i> Envie o Comprovante</h3>
+                            <p>Preencha o formulário com seus dados e envie o comprovante solicitado para validar sua participação.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <h3><i class="fas fa-clock step-icon"></i> Aguarde a Verificação</h3>
+                            <p>Após enviar, nossa equipe verificará seu comprovante. Você receberá confirmação por email quando for aprovado.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-section" style="margin-top: var(--spacing-2xl);">
+                    <h3><i class="fas fa-lightbulb"></i> Dicas Importantes</h3>
+                    <ul style="color: var(--color-gray-600); line-height: 1.8; padding-left: var(--spacing-lg);">
+                        <li>Verifique se seu comprovante está legível antes de enviar</li>
+                        <li>Mantenha os dados cadastrais sempre atualizados</li>
+                        <li>Siga nosso Instagram para notificações sobre novos sorteios</li>
+                        <li>Participe apenas uma vez por evento</li>
+                    </ul>
+                </div>
+                
+                <button class="btn btn-primary btn-block" onclick="fecharTutorial()" style="margin-top: var(--spacing-xl);">
+                    <i class="fas fa-check"></i> Entendi, vamos lá!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL - DETALHES DO EVENTO -->
+    <!-- ============================================================ -->
+    <div id="modalEvento" class="modal">
+        <div class="modal-content modal-evento">
+            <button class="modal-close" onclick="closeModalEvento()">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <div class="evento-details">
+                <h2 id="detailTitulo"></h2>
+                <p id="detailDescricao" class="evento-descricao"></p>
+
+                <div class="detail-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar-plus"></i>
+                        <div>
+                            <span class="info-label">Início</span>
+                            <span id="detailDataInicio" class="info-value"></span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <div>
+                            <span class="info-label">Término</span>
+                            <span id="detailDataFim" class="info-value"></span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <span class="info-label">Participantes</span>
+                            <span id="detailParticipantes" class="info-value">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3><i class="fas fa-trophy"></i> Premiação</h3>
+                    <ul id="detailPremiacao" class="premiacao-list">
+                    </ul>
+                </div>
+
+                <div class="detail-section">
+                    <h3><i class="fas fa-list-check"></i> Requisitos para Participar</h3>
+                    <p id="detailRequisitos" class="requisitos-text"></p>
+                </div>
+
+                <div class="detail-section">
+                    <div class="tutorial-mini">
+                        <h4><i class="fas fa-info-circle"></i> Como participar?</h4>
+                        <p style="color: var(--color-gray-600); margin-bottom: var(--spacing-md);">
+                            1. Leia todos os requisitos acima<br>
+                            2. Clique em "Criar conta" se não tiver uma<br>
+                            3. Após criar conta, clique em "Participar do Sorteio"
+                        </p>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <a id="detailLinkAfiliado" href="#" class="btn btn-primary btn-block" target="_blank">
+                        <i class="fas fa-user-plus"></i> Criar conta 
+                    </a>
+                </div>
+
+                <button class="btn btn-success btn-block" onclick="participarEvento()">
+                    <i class="fas fa-check-to-slot"></i> Participar do Sorteio
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL - FORMULÁRIO DE PARTICIPAÇÃO -->
+    <!-- ============================================================ -->
+    <div id="modalParticipacao" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" style="padding: var(--spacing-xl) var(--spacing-xl) 0;">
+                <h2 style="margin: 0; font-size: var(--font-size-xl);"><i class="fas fa-file-signature"></i> Participar do Sorteio</h2>
+                <button class="modal-close" onclick="closeModalParticipacao()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="formParticipacao" onsubmit="return false;" style="padding: var(--spacing-xl);">
+                <div class="form-group">
+                    <label for="participaNome">Nome Completo *</label>
+                    <input 
+                        type="text" 
+                        id="participaNome" 
+                        placeholder="Seu nome completo"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="participaEmail">Email *</label>
+                    <input 
+                        type="email" 
+                        id="participaEmail" 
+                        placeholder="seu@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="participaComprovante">Comprovante (Imagem) *</label>
+                    <div class="file-upload">
+                        <input 
+                            type="file" 
+                            id="participaComprovante" 
+                            accept="image/*"
+                            required
+                        >
+                        <label for="participaComprovante" class="file-label">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2em;"></i>
+                            <span>Clique para fazer upload ou arraste a imagem</span>
+                            <small style="color: var(--color-gray-500);">Tamanho máximo: 5MB</small>
+                        </label>
+                        <div id="previewComprovante" class="preview-imagem hidden">
+                            <img id="previewImg" src="" alt="Preview">
+                            <button type="button" class="btn-remove" onclick="removerComprovante()">
+                                <i class="fas fa-times"></i> Remover
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: flex-start; gap: var(--spacing-sm); cursor: pointer;">
+                        <input type="checkbox" id="participaTermos" required style="margin-top: 4px;">
+                        <span>Concordo com os <a href="#" style="color: var(--color-primary);">termos e condições</a> do sorteio e confirmo que li todos os requisitos.</span>
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: var(--spacing-md); margin-top: var(--spacing-xl);">
+                    <button type="button" class="btn btn-secondary" onclick="closeModalParticipacao()" style="flex: 1;">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success" id="btnEnviarParticipacao" style="flex: 2;">
+                        <i class="fas fa-paper-plane"></i> Enviar Participação
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/eventos-sorteio/cfg.js"></script>
+    <script src="public.js"></script>
+</body>
+</html>
