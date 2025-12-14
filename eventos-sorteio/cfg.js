@@ -38,18 +38,19 @@ const ADMIN_PASSWORD = 'admin123';
 
 // Caminhos do Realtime Database
 const DB_PATHS = {
-    EVENTOS: 'eventos',
-    PARTICIPANTES: 'participantes',
-    COMPROVANTES: 'comprovantes',
-    USUARIOS: 'usuarios'
+  EVENTOS: 'eventos',
+  PARTICIPANTES: 'participantes',
+  COMPROVANTES: 'comprovantes',
+  USUARIOS: 'usuarios',
+  VENCEDORES: 'vencedores' // Adicione esta linha se quiser separar
 };
 
 // Caminhos do Storage
 const STORAGE_PATHS = {
-    COMPROVANTES: 'comprovantes/',
-    EVENTOS: 'eventos/'
+  COMPROVANTES: 'comprovantes/',
+  EVENTOS: 'eventos/',
+  BANNERS: 'banners/' // ADICIONE ESTA LINHA
 };
-
 // ============================================================
 // ESTRUTURA DO BANCO DE DADOS
 // ============================================================

@@ -785,3 +785,432 @@ body {
 .casino-tag i {
     margin-right: 4px;
 }
+
+/* ============================================================ */
+/* ESTILOS PARA CARDS COM BANNER RESPONSIVO */
+/* ============================================================ */
+
+.evento-card {
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-gray-200);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: var(--shadow-sm);
+}
+
+.evento-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+/* ============================================================ */
+/* BANNER DO CARD */
+/* ============================================================ */
+
+.evento-card-banner {
+    position: relative;
+    width: 100%;
+    padding-bottom: 40%;
+    /* Aspect ratio 2.5:1 (1200x400px) */
+    background-color: var(--color-gray-200);
+    overflow: hidden;
+}
+
+.evento-banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--transition-base);
+}
+
+.evento-card:hover .evento-banner-img {
+    transform: scale(1.05);
+}
+
+/* Badge de Status */
+.evento-card-status-badge {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+}
+
+.evento-status-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.evento-status-badge.ativo {
+    background-color: #10b981;
+}
+
+.evento-status-badge.encerrado {
+    background-color: #6b7280;
+}
+
+.evento-status-badge.cancelado {
+    background-color: #ef4444;
+}
+
+/* ============================================================ */
+/* CONTEÚDO DO CARD */
+/* ============================================================ */
+
+.evento-card-content {
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.evento-card-header {
+    margin-bottom: var(--spacing-md);
+}
+
+.evento-card-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.evento-card-descricao {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin: 0 0 var(--spacing-md) 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ============================================================ */
+/* DATAS DO CARD */
+/* ============================================================ */
+
+.evento-card-dates {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.evento-card-date-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.evento-card-date-item i {
+    color: var(--color-primary);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.evento-card-date-item > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.evento-card-date-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.evento-card-date-value {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+/* ============================================================ */
+/* INFORMAÇÕES DO CARD */
+/* ============================================================ */
+
+.evento-card-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+}
+
+.evento-card-info-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+}
+
+.evento-card-info-item i {
+    color: var(--color-primary);
+}
+
+/* ============================================================ */
+/* FOOTER DO CARD */
+/* ============================================================ */
+
+.evento-card-footer {
+    margin-top: auto;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ============================================================ */
+/* MODAL COM BANNER */
+/* ============================================================ */
+
+.modal-banner {
+    width: 100%;
+    margin: -var(--spacing-lg) -var(--spacing-lg) var(--spacing-lg) -var(--spacing-lg);
+    padding-bottom: 40%;
+    /* Aspect ratio 2.5:1 */
+    position: relative;
+    background-color: var(--color-gray-200);
+    overflow: hidden;
+}
+
+.modal-banner-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* ============================================================ */
+/* GRID DE INFORMAÇÕES NA MODAL */
+/* ============================================================ */
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.modal-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.modal-info-label {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.modal-info-value {
+    font-size: var(--font-size-md);
+    color: var(--color-gray-900);
+    font-weight: 500;
+}
+
+/* ============================================================ */
+/* SEÇÕES DA MODAL */
+/* ============================================================ */
+
+.modal-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.modal-section h3 {
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.modal-section h3 i {
+    color: var(--color-primary);
+}
+
+.modal-requisitos {
+    background-color: var(--color-gray-50);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+    border-left: 4px solid var(--color-primary);
+    color: var(--color-gray-700);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.modal-suporte {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+/* ============================================================ */
+/* RESPONSIVIDADE */
+/* ============================================================ */
+
+@media (max-width: 768px) {
+    .evento-card-banner {
+        padding-bottom: 50%;
+        /* Aspect ratio 2:1 em mobile */
+    }
+
+    .evento-card-content {
+        padding: var(--spacing-md);
+    }
+
+    .evento-card-title {
+        font-size: var(--font-size-md);
+    }
+
+    .modal-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-suporte {
+        flex-direction: column;
+    }
+
+    .btn-sm {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .evento-card-banner {
+        padding-bottom: 60%;
+        /* Aspect ratio 1.67:1 em mobile pequeno */
+    }
+
+    .evento-card-title {
+        font-size: var(--font-size-base);
+    }
+
+    .evento-card-descricao {
+        font-size: var(--font-size-xs);
+    }
+}
+
+
+/* Estilos para a premiação */
+.premiacao-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.premiacao-list li {
+    margin-bottom: 12px;
+    padding: 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.premiacao-list li:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para os números dos requisitos */
+.requisito-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Cores personalizadas para ícones */
+.fa-trophy {
+    color: #FFD700 !important; /* Ouro */
+}
+
+.fa-medal {
+    color: #C0C0C0 !important; /* Prata */
+}
+
+.fa-award {
+    color: #CD7F32 !important; /* Bronze */
+}
+
+.fa-dice-d20 {
+    color: var(--color-danger) !important;
+}
+
+.fa-users {
+    color: var(--color-primary) !important;
+}
+
+.fa-calendar-plus, .fa-calendar-check {
+    color: var(--color-success) !important;
+}
+
+/* Efeito de entrada para o modal */
+#modalEvento .modal-content {
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+#modalEvento.active .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Estilo para seção de casino */
+.casino-section {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid var(--color-danger);
+    margin: 20px 0;
+}
+
+.casino-section h3 {
+    color: var(--color-danger);
+    margin-bottom: 10px;
+}
+
+.casino-section p {
+    color: var(--color-gray-600);
+    font-style: italic;
+    margin-bottom: 0;
+}
