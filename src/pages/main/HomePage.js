@@ -48,9 +48,7 @@ export class HomePage {
 
         <!-- Bottom Actions -->
         <div class="bottom-actions">
-        <a href="#/login" class="button-link">
-            <button class="btn-primary">${Mtx.App.Home.btn_login}</button>
-            </a>
+            <button class="btn-primary loginPageroute">${Mtx.App.Home.btn_login}</button>
             <a href="#/pricing" class="button-link">
             <button class="btn-secondary">${Mtx.App.Home.btn_signup}</button>
             </a>
@@ -102,6 +100,10 @@ return html;
 afterRender() {
     document.getElementById('root').classList.add('auto');
 
+$('.loginPageroute').click(function () {
+window.location.href = "#/login"
+console.warn("redicionmento para /login resolvido ")
+})
 }//after 
 
 }
