@@ -14,7 +14,7 @@ export function isUserAuth() {
         if (user) {
           showSuccess("Você já está logado! Redirecionando...");
           setTimeout(() => {
-            window.location.href = "#/nexus"
+            window.location.href = "#/console"
           }, 1000);
         }
       });
@@ -56,12 +56,12 @@ export async function loginWithEmail(email, password, remember) {
     await auth.setPersistence(persistence);
     
     const userCredential = await auth.signInWithEmailAndPassword(email, password);
-   // console.log("User logged in:", userCredential.user.email);
+    // console.log("User logged in:", userCredential.user.email);
     
     showSuccess("Login realizado com sucesso!");
-    setTimeout(() => {
-      window.location.href = "#/nexus";
-    }, 1500);
+    //setTimeout(() => {
+    window.location.href = "#/console";
+    // }, 9000);
     
   } catch (error) {
     console.error("Login error:", error);

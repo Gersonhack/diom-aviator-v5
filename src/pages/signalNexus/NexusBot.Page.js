@@ -224,7 +224,7 @@ setTimeout(() => {
     // console.log('open bg loader')
     document.getElementById('bgL').style.display = 'none';
     document.getElementById('navtop').classList.add('Zindex')
-    News()
+//    News()
     // $('#welcome').play()
     var audio = $('#welcome')[0];
 audio.play();
