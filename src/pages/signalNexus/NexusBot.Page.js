@@ -81,9 +81,11 @@ Conection...
     <div class="form-container">
       <div class="margin-group">
         <div class="input-group">
-          <label class="label" for="optionselect">
-            <i class="fas fa-dice text-warning text-1xl mr-4"></i>
+          <label class="label l " for="optionselect">
+            <i class="fas fa-dice text-blue-300 text-warning text-1xl mr-4"></i>
+            <span class="l">
             Casa de Apostas
+            </span>
           </label>
           <select id="optionselect" required>
             <option value="" selected disabled>Escolha a casa de apostas</option>
@@ -109,7 +111,8 @@ Conection...
 
       <div class="box-group2">
         <label class="label" for="selectNumber">
-          <i class="fas fa-chart-line text-warning text-1xl mr-4"></i>
+<i class="fas fa-chart-line text-orange-500 text-1xl mr-4"></i>
+
           Sinais De Possibilidade
         </label>
         <div class="select-button-group">
@@ -130,9 +133,10 @@ Conection...
     <section class="results-container">
       <div class="result-section">
 
-        <h2 class="title"><i class="fas fa-list"></i>
+        <h2 class="title"><i class="fas fa-list text-green-500"></i>
         
         Resultado Busca</h2>
+        
         
         <ul id="lista2" class="signal-list">
           <div class="grid-background"></div>
@@ -140,8 +144,8 @@ Conection...
       </div>
 
       <div class="result-section">
-        <h2 class="title">
-         <i class="fas fa-th"></i>
+               <h2 class="title">
+         <i class="fas fa-th text-red-400"></i>
         Conjunção De Dados Semanas</h2>
         <ul id="lista1" class="signal-list">
           <div class="loader-wrapper">
