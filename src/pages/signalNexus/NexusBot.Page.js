@@ -87,6 +87,7 @@ Conection...
           </label>
           <select id="optionselect" required>
             <option value="" selected disabled>Escolha a casa de apostas</option>
+            <option value"0">BETSUL</option>
             <option value="1">ESPORTIVABET</option>
             <option value="2">Modo Lucro</option>
           </select>

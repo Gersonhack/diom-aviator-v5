@@ -16,12 +16,17 @@ export class ModalAfiliad{
        </div>
 <div class="content">
       <p class="title">
-      Crie Sua Conta  Na Casa De Apostas Abaixo e Aproveite Bônus Exclusivos Para Novos Usuários Comece A Apostar Com Vantagens
+      Crie Sua Conta  Nas Casas De Apostas Abaixo e Aproveite Bônus Exclusivos Para Novos Usuários Comece A Apostar Com Vantagens
       </p>
-                <div class="flex btnhouse flex-col space-y-3">
+              <div class="min">
               <a href="https://go.aff.esportiva.bet/53gau5lf" class="minimalist-btn e text-white py-3 px-4 rounded-lg text-center" target="_blank"><i class="fas fa-dice text-yellow-400"></i> ESPORTIVABET</a>
 
-          </div>
+                                      <a href="https://afiliados.betsul.bet.br/z6sml0wjk
+" class="minimalist-btn e text-white py-3 px-4 rounded-lg text-center" target="_blank"><i class="fas fa-dice text-yellow-400"></i> BETSUL</a>
+            
+</div>
+              
+
 </div>
 
   <audio id="aff" src="/public/assents/music/affiliad.mp3"></audio>
