@@ -74,7 +74,7 @@ Conection...
 
   <div class="app-card">
     <div class="app-header">
-     <img class="nexus-logo" src="/src/assents/imgs/Logo.jpg" alt="logo">
+     <img class="nexus-logo" src="/src/assents/imgs/Logo-2.jpg" alt="logo">
       <p>${Mtx.App.Nexus.Text.gerador_s}</p>
     </div>
 
@@ -89,7 +89,6 @@ Conection...
           </label>
           <select id="optionselect" required>
             <option value="" selected disabled>Escolha a casa de apostas</option>
-            <option value"0">BETSUL</option>
             <option value="1">ESPORTIVABET</option>
             <option value="2">Modo Lucro</option>
           </select>
