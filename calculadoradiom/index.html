@@ -8,12 +8,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/calculadoradiom/index.css">
 
-    </style>
+    <link rel="stylesheet" href="/calculadoradiom/login.css">
+    <!-- Firebase SDK (compat) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
 <body>
     <div class="cosmic-bg"></div>
     <div class="grid-overlay"></div>
     <div class="floating-particles" id="particles"></div>
+    
+    <!-- Modal de Login -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <h2>🔐 DIOM AVIATOR</h2>
+    <p>Faça login para usar a calculadora</p>
+    <input type="email" id="loginEmail" class="auth-input" placeholder="E-mail" autocomplete="off">
+    <input type="password" id="loginPassword" class="auth-input" placeholder="Senha">
+    <div class="auth-error" id="authError">E-mail ou senha inválidos</div>
+    <button class="auth-btn" id="loginButton">ENTRAR</button>
+    <a href="https://wa.me/SEUNUMERO?text=Quero%20acesso%20%C3%A0%20calculadora%20DIOM%20Aviator" target="_blank" class="auth-link">
+      💰 COMPRAR ACESSO
+    </a>
+  </div>
+</div>
+
+<!-- Botão de logout (opcional, aparece quando logado) -->
+<button class="logout-btn" id="logoutBtn" style="display: none;">SAIR</button>
+
+    
     
     <div class="main-container">
         <!-- Header com logo redonda -->
@@ -44,7 +67,7 @@
                     <span class="input-title">DADOS DA RODADA</span>
                     <button class="example-button" onclick="loadExample()">EXEMPLO</button>
                 </div>
-                <textarea class="data-input" id="input" placeholder="3968320 4.55x 12:23:09s"></textarea>
+                <textarea class="data-input" id="input" placeholder="3968320 4.55x 12:23:09"></textarea>
             </div>
             
             <div class="action-buttons">
@@ -74,5 +97,11 @@
     <script src="/calculadoradiom/index.js">
 
     </script>
+    <script type="text/javascript" charset="utf-8" src="/calculadoradiom/auth.js">
+        
+    </script>
 </body>
 </html>
+
+
+

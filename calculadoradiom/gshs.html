@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aposta Ganha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #ff7a00;
+            --secondary: #000000;
+            --dark-bg: #0a0a0a;
+            --panel-bg: linear-gradient(160deg, #111111, #050505);
+            --text-color: #ffffff;
+            --accent-shadow: rgba(255, 122, 0, 0.4);
+        }
+        
+        html, body {
+            height: 100%;
+            background: var(--dark-bg);
+            font-family: 'Orbitron', 'Exo 2', sans-serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .universe-bg {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 122, 0, .1), transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(255, 122, 0, .05), transparent 40%),
+                linear-gradient(180deg, #000000, #111111);
+            z-index: -2;
+        }
+        
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(0); }
+            75% { transform: translateY(-20px) translateX(-10px); }
+            100% { transform: translateY(0) translateX(0); }
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .panel {
+            width: 100%;
+            max-width: 450px;
+            background: var(--panel-bg);
+            border-radius: 22px;
+            padding: 28px;
+            box-shadow: 
+                0 0 25px var(--accent-shadow),
+                inset 0 0 30px rgba(255, 255, 255, .03);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 122, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .panel:hover {
+            transform: translateY(-5px);
+        }
+        
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary), #333333, var(--primary));
+            z-index: -1;
+            border-radius: 30px;
+            opacity: 0.05;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 122, 0, 0.3);
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+        
+        .logo-main {
+            font-size: 32px;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .aposta-text {
+            color: #000000;
+            font-weight: 800;
+            text-shadow: 
+                0 0 5px rgba(255, 255, 255, 0.5),
+                0 0 10px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(90deg, #000000, #333333);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        .ganha-text {
+            color: #ff7a00;
+            font-weight: 800;
+            text-shadow: 
+                0 0 5px rgba(255, 122, 0, 0.5),
+                0 0 10px rgba(255, 122, 0, 0.3);
+            background: linear-gradient(90deg, #ff7a00, #ff9d00);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        
+        .cifrao-text {
+            font-size: 14px;
+            color: #ff0000;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-top: -5px;
+            text-shadow: 0 0 3px rgba(255, 0, 0, 0.5);
+            opacity: 0.9;
+        }
+        
+        .input-container {
+            margin-bottom: 20px;
+        }
+        
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #ff7a00;
+        }
+        
+        .example-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 122, 0, 0.3);
+            color: #ff7a00;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .example-btn:hover {
+            border-color: var(--primary);
+            background: rgba(255, 122, 0, 0.1);
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            background: #000000;
+            border: 1px solid rgba(255, 122, 0, .4);
+            border-radius: 14px;
+            color: #ff7a00;
+            padding: 16px;
+            resize: none;
+            outline: none;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(255, 122, 0, 0.5);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 18px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+        
+        .btn-process {
+            background: linear-gradient(90deg, #ff7a00, #ff9d00);
+            color: #000000;
+            box-shadow: 0 0 18px rgba(255, 122, 0, 0.6);
+        }
+        
+        .btn-process:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(255, 122, 0, 0.8);
+        }
+        
+        .btn-clear {
+            background: #111111;
+            color: #ff7a00;
+            border: 1px solid rgba(255, 122, 0, 0.3);
+        }
+        
+        .btn-clear:hover {
+            background: #1a1a1a;
+            border-color: var(--primary);
+        }
+        
+        .results {
+            margin-top: 16px;
+        }
+        
+        .result-block {
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 14px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 122, 0, 0.4);
+            box-shadow: 0 0 15px rgba(255, 122, 0, .25);
+            text-align: center;
+        }
+        
+        .result-title {
+            color: #ff7a00;
+            font-size: 16px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+        
+        .result-item {
+            background: rgba(255, 122, 0, 0.15);
+            border: 1px solid rgba(255, 122, 0, 0.4);
+            border-radius: 10px;
+            padding: 14px 8px;
+            font-size: 16px;
+            color: #ff7a00;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+        }
+        
+        .result-label {
+            font-size: 11px;
+            color: #ff7a00;
+            margin-bottom: 5px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .result-number {
+            font-size: 17px;
+            font-weight: 800;
+        }
+        
+        .warning {
+            background: rgba(255, 122, 0, 0.1);
+            border: 1px solid rgba(255, 122, 0, 0.3);
+            color: #ff7a00;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            text-align: center;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 11px;
+            opacity: 0.3;
+            color: #ff7a00;
+        }
+        
+        @media (max-width: 480px) {
+            .panel {
+                padding: 20px;
+            }
+            
+            .logo-main {
+                font-size: 26px;
+                letter-spacing: 3px;
+            }
+            
+            .cifrao-text {
+                font-size: 12px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .result-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .result-item {
+                min-height: 65px;
+                padding: 12px 6px;
+                font-size: 15px;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .no-select {
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        .success-badge {
+            display: inline-block;
+            background: rgba(0, 255, 0, 0.1);
+            color: #00ff00;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-left: 10px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 10px 0;
+            color: #ff7a00;
+        }
+        
+        .loading-spinner {
+            border: 3px solid rgba(255, 122, 0, 0.3);
+            border-top: 3px solid #ff7a00;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="universe-bg"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="panel">
+            <div class="header">
+                <h1 class="logo-main">
+                    <span class="aposta-text">APOSTA</span>
+                    <span class="ganha-text">GANHA</span>
+                </h1>
+                <div class="cifrao-text">CIFRÃƒO</div>
+            </div>
+            
+            <div class="input-container">
+                <div class="input-label">
+                    <span>COLE RODADA, VELA E HORÃRIO</span>
+                    <button class="example-btn" onclick="loadExample()">EXEMPLO</button>
+                </div>
+                <textarea id="input" placeholder="Exemplo: 3433362 1.5x 09:57:44"></textarea>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn-process" onclick="processData()">PROCESSAR</button>
+                <button class="btn-clear" onclick="clearData()">LIMPAR</button>
+            </div>
+            
+            <div class="loading" id="loading">
+                <div class="loading-spinner"></div>
+                <div>Processando dados...</div>
+            </div>
+            
+            <div class="results" id="out">
+                <!-- Resultados aparecerÃ£o aqui -->
+            </div>
+            
+            <div class="warning no-select">
+                Sistema de anÃ¡lise avanÃ§ada â€¢ Use com responsabilidade
+            </div>
+            
+            <div class="footer no-select">
+                &copy; 2023 â€¢ Tecnologia proprietÃ¡ria
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== PROTEÃ‡ÃƒO AVANÃ‡ADA =====
+        (function() {
+            'use strict';
+            
+            // Impedir clique direito
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                showBlockMessage();
+                return false;
+            });
+            
+            // Impedir atalhos de teclado
+            document.addEventListener('keydown', function(e) {
+                if (
+                    e.key === 'F12' || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                    (e.ctrlKey && e.shiftKey && e.key === 'J') || 
+                    (e.ctrlKey && e.key === 'U') ||
+                    (e.ctrlKey && e.shiftKey && e.key === 'C')
+                ) {
+                    e.preventDefault();
+                    showBlockMessage();
+                    return false;
+                }
+            });
+            
+            // Impedir cÃ³pia
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                showBlockMessage();
+                return false;
+            });
+            
+            // Impedir arrastar
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Impedir seleÃ§Ã£o
+            document.addEventListener('selectstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            function showBlockMessage() {
+                // NÃ£o mostra mais mensagem para evitar interrupÃ§Ã£o
+            }
+            
+            // DetecÃ§Ã£o de DevTools - versÃ£o melhorada
+            let devToolsOpened = false;
+            
+            function detectDevTools() {
+                const threshold = 160;
+                const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+                const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+                
+                if ((widthThreshold || heightThreshold) && !devToolsOpened) {
+                    devToolsOpened = true;
+                    // NÃ£o bloqueia mais, apenas registra
+                    console.log('Aviso: Ferramentas de desenvolvedor detectadas');
+                }
+            }
+            
+            // Verificar periodicamente
+            setInterval(detectDevTools, 1000);
+            
+            // Criar partÃ­culas
+            function createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                const particleCount = 50;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    
+                    const size = Math.random() * 3 + 1;
+                    particle.style.width = `${size}px`;
+                    particle.style.height = `${size}px`;
+                    
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.top = `${Math.random() * 100}%`;
+                    
+                    particle.style.animationDelay = `${Math.random() * 20}s`;
+                    particle.style.opacity = Math.random() * 0.5 + 0.1;
+                    
+                    particlesContainer.appendChild(particle);
+                }
+            }
+            
+            createParticles();
+        })();
+        
+        // ===== LÃ“GICA DE PROCESSAMENTO CORRIGIDA =====
+        function processData() {
+            console.log('Iniciando processamento...');
+            
+            const input = document.getElementById('input').value.trim();
+            const output = document.getElementById('out');
+            const loading = document.getElementById('loading');
+            
+            // Limpar resultados anteriores
+            output.innerHTML = '';
+            
+            // Mostrar loading
+            loading.style.display = 'block';
+            
+            if (!input) {
+                loading.style.display = 'none';
+                showError('Por favor, insira os dados para anÃ¡lise.');
+                return;
+            }
+            
+            // Usar setTimeout para dar tempo de mostrar o loading
+            setTimeout(function() {
+                try {
+                    console.log('Entrada recebida:', input);
+                    
+                    // Extrair nÃºmero da rodada - mÃ©todo mais robusto
+                    let roundNumber = null;
+                    const numberMatches = input.match(/\d+/g);
+                    
+                    if (numberMatches && numberMatches.length > 0) {
+                        // Procurar por nÃºmero com 6-9 dÃ­gitos
+                        for (let match of numberMatches) {
+                            if (match.length >= 6 && match.length <= 9) {
+                                roundNumber = parseInt(match);
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (!roundNumber) {
+                        loading.style.display = 'none';
+                        showError('NÃºmero da rodada nÃ£o encontrado (precisa ter 6 a 9 dÃ­gitos).');
+                        return;
+                    }
+                    
+                    console.log('Rodada encontrada:', roundNumber);
+                    
+                    // Extrair horÃ¡rio - mÃ©todo mais robusto
+                    const timeMatch = input.match(/(\d{1,2})[:\.](\d{1,2})[:\.](\d{1,2})/);
+                    
+                    if (!timeMatch) {
+                        loading.style.display = 'none';
+                        showError('HorÃ¡rio nÃ£o encontrado. Use formato HH:MM:SS ou HH.MM.SS.');
+                        return;
+                    }
+                    
+                    // Garantir que cada parte tenha 2 dÃ­gitos
+                    const hours = String(timeMatch[1]).padStart(2, '0');
+                    const minutes = String(timeMatch[2]).padStart(2, '0');
+                    const seconds = String(timeMatch[3]).padStart(2, '0');
+                    const timeString = `${hours}:${minutes}:${seconds}`;
+                    
+                    console.log('HorÃ¡rio processado:', timeString);
+                    
+                    // LEITURA DO HORÃRIO - corrigido para pegar os dÃ­gitos corretos
+                    const minuteDigit = parseInt(minutes[1]); // Segundo dÃ­gito do minuto
+                    const secondDigit = parseInt(seconds[0]); // Primeiro dÃ­gito dos segundos
+                    
+                    console.log('Minuto:', minutes, 'Segundo dÃ­gito:', minuteDigit);
+                    console.log('Segundo:', seconds, 'Primeiro dÃ­gito:', secondDigit);
+                    
+                    // CÃLCULO DA SOMA COM REGRAS ESPECIAIS
+                    let minuteValue = (minuteDigit === 0 || isNaN(minuteDigit)) ? 1 : minuteDigit;
+                    let secondValue = (secondDigit === 0 || isNaN(secondDigit)) ? 1 : secondDigit;
+                    
+                    console.log('Valores ajustados:', minuteValue, secondValue);
+                    
+                    let sum = minuteValue + secondValue;
+                    if (sum === 0) sum = 2;
+                    
+                    console.log('Soma:', sum);
+                    
+                    // ANÃLISE DA RODADA
+                    const lastTwoDigits = roundNumber % 100;
+                    console.log('Ãšltimos 2 dÃ­gitos da rodada:', lastTwoDigits);
+                    
+                    // ENCONTRAR DEZENA ALVO - lÃ³gica corrigida
+                    let targetTen;
+                    
+                    // Obter o dÃ­gito da unidade da soma
+                    const sumDigit = sum % 10;
+                    
+                    // Calcular base da dezena atual
+                    const currentTen = Math.floor(lastTwoDigits / 10) * 10;
+                    
+                    // Encontrar a prÃ³xima dezena que termina com o dÃ­gito da soma
+                    targetTen = currentTen + sumDigit;
+                    
+                    // Se for menor ou igual, adicionar 10
+                    if (targetTen <= lastTwoDigits) {
+                        targetTen += 10;
+                    }
+                    
+                    // Garantir que termina com o dÃ­gito correto
+                    while (targetTen % 10 !== sumDigit) {
+                        targetTen++;
+                    }
+                    
+                    console.log('Dezena alvo encontrada:', targetTen);
+                    
+                    // GERAR BLOCOS DE RESULTADOS
+                    const firstBlock = [
+                        targetTen - 1,
+                        targetTen,
+                        targetTen + 1
+                    ];
+                    
+                    console.log('Primeiro bloco:', firstBlock);
+                    
+                    const nextTargetTen = targetTen + 10;
+                    const secondBlock = [
+                        nextTargetTen - 1,
+                        nextTargetTen,
+                        nextTargetTen + 1
+                    ];
+                    
+                    console.log('Segundo bloco:', secondBlock);
+                    
+                    // Calcular nÃºmeros finais
+                    const baseWithoutLastTwo = Math.floor(roundNumber / 100) * 100;
+                    console.log('Base sem Ãºltimos 2 dÃ­gitos:', baseWithoutLastTwo);
+                    
+                    const firstBlockResults = firstBlock.map(v => baseWithoutLastTwo + v);
+                    const secondBlockResults = secondBlock.map(v => baseWithoutLastTwo + v);
+                    
+                    console.log('Resultados primeiro bloco:', firstBlockResults);
+                    console.log('Resultados segundo bloco:', secondBlockResults);
+                    
+                    // Esconder loading
+                    loading.style.display = 'none';
+                    
+                    // EXIBIR RESULTADOS
+                    displayResults(roundNumber, firstBlockResults, secondBlockResults);
+                    
+                    console.log('Processamento concluÃ­do com sucesso!');
+                    
+                } catch (error) {
+                    console.error('Erro no processamento:', error);
+                    loading.style.display = 'none';
+                    showError('Erro ao processar. Verifique o formato dos dados e tente novamente.');
+                }
+            }, 500); // Pequeno atraso para mostrar o loading
+        }
+        
+        function displayResults(originalRound, firstBlock, secondBlock) {
+            const output = document.getElementById('out');
+            
+            // Rodada original
+            const originalDiv = document.createElement('div');
+            originalDiv.className = 'result-block fade-in';
+            originalDiv.innerHTML = `
+                <div class="result-title">ðŸŽ¯ RODADA ANALISADA</div>
+                <div style="font-size: 20px; font-weight: 700; color: #ff7a00; letter-spacing: 2px;">
+                    ${formatNumber(originalRound)}
+                </div>
+                <div style="font-size: 12px; color: #ff7a00; margin-top: 8px; opacity: 0.7;">
+                    AnÃ¡lise concluÃ­da com sucesso <span class="success-badge">âœ“</span>
+                </div>
+            `;
+            output.appendChild(originalDiv);
+            
+            // Primeiro bloco de resultados
+            const firstResultDiv = document.createElement('div');
+            firstResultDiv.className = 'result-block fade-in';
+            firstResultDiv.style.animationDelay = '0.2s';
+            
+            let firstContent = `<div class="result-title">ðŸ”¥ PRIMEIRO GRUPO</div>`;
+            firstContent += `<div class="result-grid">`;
+            
+            const firstLabels = ['PRIMEIRA', 'SEGUNDA', 'TERCEIRA'];
+            firstBlock.forEach((result, index) => {
+                firstContent += `
+                    <div class="result-item">
+                        <div class="result-label">${firstLabels[index]}</div>
+                        <div class="result-number">${formatNumber(result)}</div>
+                    </div>
+                `;
+            });
+            
+            firstContent += `</div>`;
+            firstResultDiv.innerHTML = firstContent;
+            output.appendChild(firstResultDiv);
+            
+            // Segundo bloco de resultados
+            const secondResultDiv = document.createElement('div');
+            secondResultDiv.className = 'result-block fade-in';
+            secondResultDiv.style.animationDelay = '0.4s';
+            
+            let secondContent = `<div class="result-title">âš¡ SEGUNDO GRUPO</div>`;
+            secondContent += `<div class="result-grid">`;
+            
+            const secondLabels = ['QUARTA', 'QUINTA', 'SEXTA'];
+            secondBlock.forEach((result, index) => {
+                secondContent += `
+                    <div class="result-item">
+                        <div class="result-label">${secondLabels[index]}</div>
+                        <div class="result-number">${formatNumber(result)}</div>
+                    </div>
+                `;
+            });
+            
+            secondContent += `</div>`;
+            secondResultDiv.innerHTML = secondContent;
+            output.appendChild(secondResultDiv);
+            
+            // InstruÃ§Ã£o final
+            const instructionDiv = document.createElement('div');
+            instructionDiv.className = 'result-block fade-in';
+            instructionDiv.style.animationDelay = '0.6s';
+            instructionDiv.style.background = 'rgba(255, 122, 0, 0.1)';
+            instructionDiv.style.borderColor = 'rgba(255, 122, 0, 0.3)';
+            
+            instructionDiv.innerHTML = `
+                <div style="color: #ff7a00; font-size: 14px; margin-bottom: 8px; font-weight: 600;">
+                    ðŸ’¡ RECOMENDAÃ‡ÃƒO DO SISTEMA
+                </div>
+                <div style="color: #ff7a00; font-size: 13px; line-height: 1.5; opacity: 0.9;">
+                    Utilize estas 6 projeÃ§Ãµes como referÃªncia para suas anÃ¡lises.
+                    O algoritmo prioriza sequÃªncias com maior probabilidade estatÃ­stica.
+                </div>
+            `;
+            
+            output.appendChild(instructionDiv);
+        }
+        
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        
+        function showError(message) {
+            const output = document.getElementById('out');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'result-block fade-in';
+            errorDiv.style.color = '#ff0000';
+            errorDiv.style.textAlign = 'center';
+            errorDiv.style.background = 'rgba(255, 0, 0, 0.1)';
+            errorDiv.style.borderColor = 'rgba(255, 0, 0, 0.3)';
+            errorDiv.innerHTML = `
+                <div style="font-size: 18px; margin-bottom: 8px;">âš ï¸</div>
+                <div style="font-size: 15px; font-weight: 600;">${message}</div>
+            `;
+            output.appendChild(errorDiv);
+        }
+        
+        function clearData() {
+            document.getElementById('input').value = '';
+            document.getElementById('out').innerHTML = '';
+            document.getElementById('loading').style.display = 'none';
+            
+            const input = document.getElementById('input');
+            input.focus();
+            input.style.boxShadow = '0 0 15px rgba(255, 122, 0, 0.5)';
+            setTimeout(() => {
+                input.style.boxShadow = '';
+            }, 300);
+        }
+        
+        function loadExample() {
+            document.getElementById('input').value = '3433362 1.5x 09:57:44';
+            
+            const input = document.getElementById('input');
+            input.style.boxShadow = '0 0 15px rgba(255, 122, 0, 0.5)';
+            setTimeout(() => {
+                input.style.boxShadow = '';
+            }, 500);
+        }
+        
+        // InicializaÃ§Ã£o da pÃ¡gina
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('PÃ¡gina Aposta Ganha carregada. Sistema pronto.');
+            
+            // Carregar exemplo apÃ³s 1 segundo
+            setTimeout(function() {
+                console.log('Carregando exemplo automÃ¡tico...');
+                loadExample();
+                
+                // Processar automaticamente apÃ³s 2 segundos
+                setTimeout(function() {
+                    console.log('Processando exemplo automaticamente...');
+                    processData();
+                }, 2000);
+            }, 1000);
+        });
+        
+        // Atalho de teclado Ctrl+Enter
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                processData();
+            }
+        });
+        
+        // Foco automÃ¡tico no campo de entrada
+        window.addEventListener('load', function() {
+            document.getElementById('input').focus();
+        });
+    </script>
+</body>
+</html>
