@@ -215,7 +215,7 @@
         }
         
         function loadExample() {
-          document.getElementById('input').value = '3433362 1.5x 09:57:44';
+          document.getElementById('input').value = '';
           
           const input = document.getElementById('input');
           input.style.boxShadow = '0 0 30px rgba(255, 122, 0, 0.2)';
