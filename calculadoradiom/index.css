@@ -117,7 +117,7 @@
         
 
 .logo-circle {
-    width: 110px !important;
+    width: 250px !important;
     height: auto;           /* Altura automática */
          /* Altura máxima em telas grandes */
     aspect-ratio: 16/4;     /* Proporção largura/altura (ex: 4:1) */
