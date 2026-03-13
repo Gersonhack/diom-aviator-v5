@@ -165,6 +165,42 @@
 
 
 
+/* Ajustes para telas médias (tablets) */
+@media (max-width: 992px) {
+    .logo-circle {
+        max-width: 500px !important;
+    }
+    .logo-circle::after {
+        font-size: 24px;
+        top:50px;
+        padding: 18px 0 8px 0;
+    }
+}
+
+/* Ajustes para celulares */
+@media (max-width: 768px) {
+    .logo-circle {
+        max-width: 400px !important;
+    }
+    .logo-circle::after {
+        font-size: 20px;
+        letter-spacing: 3px;
+        padding: 15px 0 6px 0;
+    }
+}
+
+/* Ajustes para celulares pequenos */
+@media (max-width: 480px) {
+    .logo-circle {
+        max-width: 300px !important;
+    }
+    .logo-circle::after {
+        font-size: 18px;
+        letter-spacing: 2px;
+        padding: 12px 0 5px 0;
+    }
+}
+
 
         .brand-name {
             font-size: 32px;
