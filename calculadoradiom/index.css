@@ -101,53 +101,71 @@
         .header-section {
             width: 100%;
             max-width: 600px;
-            margin-bottom: 40px;
+            margin-bottom: 15px;
             text-align: center;
         }
         
         /* Container da logo redonda */
         .logo-container {
             display: flex;
+            width: 100%;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
-        .logo-circle {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 
-                0 0 30px var(--accent-glow),
-                inset 0 2px 5px rgba(255, 255, 255, 0.3);
-            margin-bottom: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .logo-circle:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px var(--accent-glow);
-        }
-        
-        .logo-circle svg {
-            width: 100px;
-            height: 1000px;
-            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
-        }
-        
-        .logo-circle img {
-            width: 100px;
-            height:100px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-        
+
+.logo-circle {
+    width: 110px !important;
+    height: auto;           /* Altura automática */
+         /* Altura máxima em telas grandes */
+    aspect-ratio: 16/4;     /* Proporção largura/altura (ex: 4:1) */
+    border-radius: 8px;      /* Cantos levemente arredondados (px é mais previsível que %) */
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px var(--accent-glow);
+    margin-bottom: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+
+.logo-circle {
+    position: relative;     /* Garante que a imagem não vaze */
+}
+
+.logo-circle::after {
+    content: "DIOM AVIATOR";
+    position: absolute;
+    bottom: 0;
+    top:20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: 800;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    padding: 20px 0 10px 0;
+    letter-spacing: 4px;
+}
+
+
+.logo-circle img {
+    width: 120px !important;
+    height:100px !important;           /* Ocupa toda altura do container */
+    object-fit: cover;      /* Cobre sem distorcer */
+    object-position: center; /* Centraliza o foco da imagem */
+    border-radius: 6px;      /* Cantos suaves combinando com o container */
+}
+
+
+
+
         .brand-name {
             font-size: 32px;
             font-weight: 800;

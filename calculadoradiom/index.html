@@ -10,8 +10,10 @@
 
     <link rel="stylesheet" href="/calculadoradiom/login.css">
     <!-- Firebase SDK (compat) -->
+<!-- Firebase SDK (compat) - ordem IMPORTANTE: app primeiro, depois auth, depois database -->
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
 </head>
 <body>
     <div class="cosmic-bg"></div>
@@ -56,7 +58,7 @@
                     <span class="brand-name-bet">BET</span>
                 </div>
                 <div class="brand-tagline">ANÁLISE AVANÇADA</div>
-                <span class="brand-name-bet">DIOM AVIATOR</span>
+                <span class="brand-name-bet">SPRIBE</span>
             </div>
         </div>
         
@@ -97,7 +99,7 @@
     <script src="/calculadoradiom/index.js">
 
     </script>
-    <script type="text/javascript" charset="utf-8" src="/calculadoradiom/aut.js">
+    <script type="text/javascript" charset="utf-8" src="/calculadoradiom/auth.js">
         
     </script>
 </body>
