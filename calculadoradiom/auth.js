@@ -1,4 +1,4 @@
-
+// Configuração do Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyB5v0e77dvzHINhHzCKeMs6QPjqo7Z7img",
   authDomain: "login-database-black.firebaseapp.com",
@@ -14,6 +14,32 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 const usersRef = db.ref('users');
+
+// Função para traduzir erros do Firebase
+function translateFirebaseError(error) {
+  const errorCode = error.code;
+  
+  const errorMap = {
+    'auth/invalid-email': 'E-mail inválido. Verifique o formato.',
+    'auth/user-disabled': 'Esta conta foi desativada. Entre em contato com o suporte.',
+    'auth/user-not-found': 'Usuário não encontrado. Verifique o e-mail.',
+    'auth/wrong-password': 'Senha incorreta. Tente novamente.',
+    'auth/too-many-requests': 'Muitas tentativas falhas. Aguarde alguns minutos.',
+    'auth/network-request-failed': 'Erro de conexão. Verifique sua internet.',
+    'auth/email-already-in-use': 'Este e-mail já está em uso.',
+    'auth/weak-password': 'A senha deve ter pelo menos 6 caracteres.',
+    'auth/operation-not-allowed': 'Este método de login não está habilitado.',
+    'auth/account-exists-with-different-credential': 'Já existe uma conta com este e-mail usando outro método de login.',
+    'auth/requires-recent-login': 'Esta operação requer autenticação recente. Faça login novamente.',
+    'auth/invalid-credential': 'Credenciais inválidas. Verifique e-mail e senha.',
+    'auth/invalid-verification-code': 'Código de verificação inválido.',
+    'auth/invalid-verification-id': 'ID de verificação inválido.',
+    'auth/missing-email': 'O e-mail é obrigatório.',
+    'auth/missing-password': 'A senha é obrigatória.'
+  };
+  
+  return errorMap[errorCode] || 'Erro ao fazer login. Tente novamente mais tarde.';
+}
 
 // Elementos DOM
 const overlay = document.getElementById('authOverlay');
@@ -91,7 +117,7 @@ loginBtn.addEventListener('click', () => {
     })
     .catch(error => {
       authError.style.display = 'block';
-      authError.textContent = error.message;
+      authError.textContent = translateFirebaseError(error); // Agora traduzido!
     });
 });
 

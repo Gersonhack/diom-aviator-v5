@@ -32,7 +32,6 @@
   }
   .auth-modal h2 {
     color: #ff7a00;
-    margin-bottom: 10px;
     font-size: 24px;
   }
   .auth-modal p {
@@ -69,6 +68,7 @@
     transition: all 0.3s;
     text-transform: uppercase;
     letter-spacing: 1px;
+    margin-top:20px;
     margin-bottom: 15px;
   }
   .auth-btn:hover {
