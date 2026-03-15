@@ -574,3 +574,23 @@
         .fade-up {
             animation: fadeInUp 0.5s ease forwards;
         }
+        
+        .result-card.purple-card {
+    
+    border-color: rgba(161, 3, 161, 1);
+}
+.result-card.pink-card {
+    
+    border-color: rgba(175, 18, 96, 1);
+}
+
+.rtx{
+    display: inline-block;
+            background: black;
+            border: 1px solid rgba(255, 244, 255, 1);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+}
