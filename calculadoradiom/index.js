@@ -153,7 +153,7 @@
         }
 
         function loadExample() {
-            document.getElementById('input').value = '3968320 4.55x 12:23:09';
+           // document.getElementById('input').value = '3968320 4.55x 12:23:09';
             document.getElementById('input').focus();
         }
 
