@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIOM - App de Probabilidades Aviator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap'); /* Uma fonte mais futurista */
+
+        body {
+            background-color: #000; /* Fundo preto */
+            color: #fff;
+            font-family: 'Orbitron', sans-serif; /* Fonte futurista */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; /* Alinha no topo */
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Evita scroll horizontal */
+            position: relative;
+        }
+
+        /* Efeito de brilho neon no fundo */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px; /* Limita a largura para melhor visualização em mobile */
+            background: #1a0000; /* Fundo mais escuro com tom avermelhado */
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #ff0000; /* Borda vermelha forte */
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.7), 0 0 50px rgba(255, 0, 0, 0.3); /* Brilho neon */
+            text-align: center;
+            margin-top: 20px; /* Espaço do topo */
+            position: relative;
+            z-index: 1; /* Garante que o container fique acima do efeito de fundo */
+        }
+
+        .welcome-message {
+            color: #00ff00; /* Verde neon para a mensagem */
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-shadow: 0 0 8px rgba(0, 255, 0, 0.7); /* Sombra neon */
+        }
+
+        .platform-link {
+            display: block;
+            margin-top: 15px;
+            color: #00aaff; /* Azul neon para o link */
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+        }
+
+        .platform-link:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        input[type="number"] {
+            width: calc(100% - 20px); /* Ajusta para padding */
+            padding: 12px;
+            margin-bottom: 15px;
+            background: #0d0d0d; /* Fundo do input mais escuro */
+            border: 1px solid #ff4d4d; /* Borda vermelha */
+            color: #00ff00; /* Texto verde neon */
+            font-size: 1.1em;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Brilho no input */
+            outline: none; /* Remove a borda de foco padrão */
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ff0000, #cc0000); /* Gradiente vermelho */
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Brilho no botão */
+            transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, #cc0000, #ff0000);
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.9);
+        }
+
+        .results-grid {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas para mobile */
+            gap: 10px;
+            width: 100%;
+        }
+
+        @media (min-width: 600px) {
+            .results-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 colunas para telas maiores */
+            }
+        }
+
+        .result-item {
+            background: #2b0000; /* Fundo dos itens de resultado */
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ff4d4d; /* Borda vermelha */
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Brilho */
+            font-size: 1.1em;
+            color: #00ff00; /* Texto verde neon */
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+
+        .image-container {
+            margin-top: 25px;
+            width: 100%;
+            max-width: 300px; /* Limita o tamanho da imagem */
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            overflow: hidden; /* Garante que a imagem respeite o border-radius */
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255, 255, 255, 0.2);
+      border-top: 6px solid red;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    /* Texto */
+    #loading-screen p {
+      font-size: 14px;
+      opacity: 0.7;
+    }
+
+    /* Animação do spinner */
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+</head>
+<body>
+    <div id="loading-screen">
+    <div class="spinner"></div>
+    
+</div>
+
+    <div class="container" id="screen">
+        <p class="welcome-message">Bem-vindo ao app do DIOM!</p>
+        <a href="https://go.aff.esportiva.bet/6t870ke0" target="_blank" class="platform-link">Plataforma EsportivaBet</a>
+
+        <h2>GERADOR DE FINAIS ESPECÍFICOS</h2>
+        <input type="number" id="inputRodada" placeholder="Última Rodada (Ex: 3482365)">
+        <button onclick="gerarNumeros()">GERAR SUGESTÕES</button>
+        
+        <div id="resultsDisplay" class="results-grid">
+            </div>
+    </div>
+
+    <div class="image-container">
+        <img src="/app/calculo-rodada-pro/IMG-20260321-WA0018.jpg" alt="DIOM Image">
+    </div>
+
+    <script>
+        function gerarNumeros() {
+            let inputElement = document.getElementById('inputRodada');
+            let base = parseInt(inputElement.value);
+            
+            if (isNaN(base)) {
+                alert("Por favor, insira um número de rodada válido.");
+                return;
+            }
+
+            let finaisDesejados = [3, 5, 8, 9];
+            let resultados = [];
+            
+            let atual = base + 1; // Começa a procurar a partir do próximo número da base
+            
+            // Busca os próximos 6 números que terminam nos finais desejados
+            while (resultados.length < 6) { // Gerar 6 números como no exemplo inicial
+                let ultimoDigito = atual % 10;
+                if (finaisDesejados.includes(ultimoDigito)) {
+                    resultados.push(atual);
+                }
+                atual++;
+            }
+            
+            const resultsDisplay = document.getElementById('resultsDisplay');
+            resultsDisplay.innerHTML = ''; // Limpa resultados anteriores
+
+            if (resultados.length === 0) {
+                resultsDisplay.innerHTML = '<div class="result-item">Nenhuma sugestão encontrada.</div>';
+            } else {
+                resultados.forEach(num => {
+                    const div = document.createElement('div');
+                    div.className = 'result-item';
+                    div.textContent = num;
+                    resultsDisplay.appendChild(div);
+                });
+            }
+        }
+        
+        
+        setTimeout(() => {
+    document.getElementById("loading-screen").style.display = "none";
+    document.getElementById("screen").style.display = "block";
+}, 3000); // 3 segundos
+    </script>
+
+</body>
+</html>
